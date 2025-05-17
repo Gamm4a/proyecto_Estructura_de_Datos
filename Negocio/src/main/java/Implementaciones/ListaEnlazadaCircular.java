@@ -25,6 +25,42 @@ public class ListaEnlazadaCircular<T> {
         public Nodo(T dato) {
             this.dato = dato;
         }
+
+        public T getDato() {
+            return dato;
+        }
+
+        public void setDato(T dato) {
+            this.dato = dato;
+        }
+
+        public Nodo<T> getSig() {
+            return sig;
+        }
+
+        public void setSig(Nodo<T> sig) {
+            this.sig = sig;
+        }
+    }
+
+    public Nodo<T> getInicio() {
+        return inicio;
+    }
+
+    public void setInicio(Nodo<T> inicio) {
+        this.inicio = inicio;
+    }
+
+    public Nodo<T> getFin() {
+        return fin;
+    }
+
+    public void setFin(Nodo<T> fin) {
+        this.fin = fin;
+    }
+
+    public int getTamaño() {
+        return tamaño;
     }
     
     /**
@@ -61,5 +97,9 @@ public class ListaEnlazadaCircular<T> {
             fin.sig = inicio;
         }
         tamaño--;
+    }
+
+    public boolean vacia() {
+        return tamaño == 0;
     }
 }
