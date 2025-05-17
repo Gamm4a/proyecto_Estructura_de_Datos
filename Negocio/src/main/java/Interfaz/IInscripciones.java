@@ -10,4 +10,13 @@ package Interfaz;
  */
 public interface IInscripciones {
     
+    void inscribirEstudianteEnCurso(String matricula, String clave);
+
+    void mostrarInscritos(String clave);
+    
+    void mostrarListaEspera(String clave, int cantidad);
+
+    void recorrerListaEsperaAdelante(String clave);
+
+    void recorrerListaEsperaAtras(String clave);
 }
