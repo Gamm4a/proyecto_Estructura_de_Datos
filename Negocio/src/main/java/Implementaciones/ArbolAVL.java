@@ -150,4 +150,22 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
         return y;
     }
+
+    /**
+    *Metodo que recorre el arbol 
+    */
+    public void inOrder() {
+        inOrder(raiz);
+    }
+
+    /**
+    *Metodo recursivo que recorre el arbol de forma IMD
+    */
+    private void inOrder(Nodo<T> nodo) {
+        if (nodo != null) {
+            inOrder(nodo.izq);
+            System.out.print(nodo.dato + " ");
+            inOrder(nodo.der);
+        }
+    }
 }
