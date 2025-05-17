@@ -5,7 +5,8 @@
 package Facade;
 
 import Interfaz.ICursos;
-
+import Implementaciones.Diccionario;
+import ObjetosNegocio.Cursos;
 
 /**
  *
