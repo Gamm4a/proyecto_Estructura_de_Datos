@@ -12,6 +12,8 @@ public interface IInscripciones {
     
     void inscribirEstudianteEnCurso(String matricula, String clave);
 
+    void eliminarEstudianteDeCurso(String matricula, String clave);
+
     void mostrarInscritos(String clave);
     
     void mostrarListaEspera(String clave, int cantidad);
