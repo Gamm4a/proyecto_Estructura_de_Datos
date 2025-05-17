@@ -10,4 +10,8 @@ package Interfaz;
  */
 public interface IReportes {
     
+    void listarPorPromedio();
+    
+    void rotarRol(String clave);
 }
+
