@@ -7,7 +7,7 @@ package ObjetosNegocio;
  *
  * @author Luis Rafael
  */
-public class Estudiantes {
+public class Estudiantes implements Comparable<Estudiantes> {
     
     public class Direccion {
     private String calle;
@@ -29,6 +29,7 @@ public class Estudiantes {
 }
     private String nombre, matricula, telefono, correo;
     private Direccion direccion;
+    private ArregloCalificaciones<Integer> calificaciones;
     
     public Estudiantes(String matricula, String nombre, String telefono, String correo, Direccion direccion){
         this.matricula = matricula;
@@ -38,6 +39,12 @@ public class Estudiantes {
         this.direccion = direccion;
     }
 
+    
+    @Override
+    public int compareTo(Estudiantes o) {
+        return this.matricula.compareTo(o.matricula);
+    }
+    
     public String getMatricula() {
         return matricula;
     }
@@ -76,5 +83,13 @@ public class Estudiantes {
 
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
+    }
+
+    public ArregloCalificaciones<Integer> getCalificaciones() {
+        return calificaciones;
+    }
+
+    public void setCalificaciones(ArregloCalificaciones<Integer> calificaciones) {
+        this.calificaciones = calificaciones;
     }
 }
