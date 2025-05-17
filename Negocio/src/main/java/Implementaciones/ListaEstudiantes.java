@@ -45,9 +45,9 @@ public class ListaEstudiantes<T> {
      * crea el inicio de la lista
      * @param dato valor del nodo
      */
-    public ListaEstudiantes(T dato) {
-        this.p = new Nodo<>(dato);
-        this.tamaño = 1;
+    public ListaEstudiantes() {
+        this.p = null;
+        this.tamaño = 0;
     }
     
     /**
@@ -63,6 +63,33 @@ public class ListaEstudiantes<T> {
         actual.sig = nuevo;
         tamaño++;
     }
+
+    /**
+    * eliminar un nodo de la lista 
+    */
+    public void eliminar(T dato) {
+        if (p == null) {
+            return;
+        }else if (p.getDato().equals(dato)) {
+            p = p.getSig();
+            tamaño--;
+            return;
+        }
+
+        Nodo<T> actual = p;
+        Nodo<T> anterior = null;
+
+        while (actual != null && !actual.getDato().equals(dato)) {
+            anterior = actual;
+            actual = actual.getSig();
+        }
+
+        if (actual != null) {
+            anterior.setSig(actual.getSig());
+            tamaño--;
+        }
+    }
+    
     /**
      * imprime los nodos de la lista
      */
