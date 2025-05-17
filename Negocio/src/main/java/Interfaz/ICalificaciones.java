@@ -9,5 +9,12 @@ package Interfaz;
  * @author 52644
  */
 public interface ICalificaciones {
-    
+
+    void agregarCalificacion(String matricula, double calificacion);
+
+    void eliminarCalificacion(String matricula, int posicion);
+
+    double calcularPromedio(String matricula);
+
+    void modificarCalificacion(String matricula, double calificacion, double calNueva);
 }
