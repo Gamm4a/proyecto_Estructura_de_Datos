@@ -12,8 +12,11 @@ public class Accion {
 
     public enum Tipo {
         REGISTRO_ESTUDIANTE,
+        ELIMINAR_ESTUDIANTE,
         INSCRIPCION,
         BAJA_ESTUDIANTE,
+        AGREGAR_CURSO,
+        ELIMINAR_CURSO,
         CALIFICACION_AGREGADA,
         CALIFICACION_MODIFICADA
     }
@@ -35,7 +38,14 @@ public class Accion {
         this.posicionCalificacion = posicion;
     }
 
-    // Getters y Setters...
+    public Estudiantes getEstudianteInvolucrado() {
+        return estudianteInvolucrado;
+    }
+
+    public void setEstudianteInvolucrado(Estudiantes estudianteInvolucrado) {
+        this.estudianteInvolucrado = estudianteInvolucrado;
+    }
+    
     public Tipo getTipo() {
         return tipo;
     }
