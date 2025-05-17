@@ -12,5 +12,21 @@ import Interfaz.ICursos;
  * @author Luis Rafael
  */
 public class FCursos implements ICursos{
-    
+
+    private Diccionario<String, Cursos> cursos;
+
+    @Override
+    public void agregarCurso(String clave, Cursos curso) {
+        cursos.put(clave, curso);
+    }
+
+    @Override
+    public void eliminarCurso(String clave) {
+        cursos.remove(clave);
+    }
+
+    @Override
+    public void mostrarCursos() {
+        cursos.imprimir();
+    }
 }
