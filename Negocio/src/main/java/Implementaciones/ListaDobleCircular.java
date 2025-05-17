@@ -98,4 +98,55 @@ public class ListaDobleCircular<T> {
         }
         tamaño--;
     }
+
+    
+    public void imprimir() {
+        if (inicio == null) {
+            System.out.println("La lista está vacía.");
+            return;
+        }
+
+        Nodo<T> actual = inicio;
+        do {
+            System.out.println(actual.dato);
+            actual = actual.sig;
+        } while (actual != inicio);
+    }
+    
+    public void imprimirReversa() {
+        if (inicio == null) {
+            System.out.println("La lista está vacía.");
+            return;
+        }
+
+        Nodo<T> actual = inicio;
+        do {
+            System.out.println(actual.dato);
+            actual = actual.ant;
+        } while (actual != inicio);
+    }
+    
+    public void imprimirCant(int cantidad) {
+        if (inicio == null || cantidad <= 0) {
+            System.out.println("Lista vacía o cantidad inválida.");
+            return;
+        }
+
+        Nodo<T> actual = inicio;
+        int contador = 0;
+
+        do {
+            System.out.println(actual.dato);
+            actual = actual.sig;
+            contador++;
+        } while (contador < cantidad && actual != inicio);
+    }
+
+    public int getTamaño() {
+        return tamaño;
+    }
+
+    public boolean estaVacia() {
+        return tamaño == 0;
+    }
 }
