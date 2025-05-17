@@ -14,5 +14,7 @@ public interface IEstudiantes {
 
     void registrarEstudiante(Estudiantes estudiante);
 
+    void eliminarEstudiante(String matricula);
+
     Estudiantes buscarEstudiante(String matricula);
 }
