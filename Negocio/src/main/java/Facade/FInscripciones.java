@@ -28,6 +28,13 @@ public class FInscripciones implements IInscripciones{
     }
 
     @Override
+    public void eliminarEstudianteDeCurso(String matricula, String clave) {
+        Cursos cursoEliminar = cursos.get(clave);
+        Estudiantes estudiante = estudiantes.buscarPorAtributo(e -> e.getMatricula(), matricula);
+        cursoEliminar.getInscritos().eliminar(estudiante);
+    }
+
+    @Override
     public void mostrarInscritos(String clave) {
         Cursos cursoMostrar = cursos.get(clave);
         cursoMostrar.getInscritos().imprimir();
