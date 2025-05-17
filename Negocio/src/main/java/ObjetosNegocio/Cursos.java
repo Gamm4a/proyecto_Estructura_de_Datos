@@ -6,18 +6,26 @@ package ObjetosNegocio;
 
 import Implementaciones.ListaDobleCircular;
 import Implementaciones.ListaEstudiantes;
+import Implementaciones.ListaEnlazadaCircular;
+import Implementaciones.ListaEnlazadaCircular.Nodo;
 
 /**
  *
  * @author Luis Rafael
  */
 public class Cursos {
-    private String nombre;
+    private String nombre, clave;
     private ListaEstudiantes<Estudiantes> inscritos;
     private ListaDobleCircular<Estudiantes> listaEspera;
+    private ListaEnlazadaCircular<Estudiantes> rolEstudiantes;
+    private Nodo<Estudiantes> lider;
+    
+    public static final int MAX_INSCRITOS = 30;
 
-    public Cursos(String nombre) {
+    public Cursos(String clave, String nombre) {
+        this.clave = clave;
         this.nombre = nombre;
+        this.lider = rolEstudiantes.getInicio();
     }
 
     public String getNombre() {
@@ -26,6 +34,14 @@ public class Cursos {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
     public ListaEstudiantes<Estudiantes> getInscritos() {
@@ -42,5 +58,21 @@ public class Cursos {
 
     public void setListaEspera(ListaDobleCircular<Estudiantes> listaEspera) {
         this.listaEspera = listaEspera;
+    }
+
+    public ListaEnlazadaCircular<Estudiantes> getRolEstudiantes() {
+        return rolEstudiantes;
+    }
+
+    public void setRolEstudiantes(ListaEnlazadaCircular<Estudiantes> estudiantesConRol) {
+        this.rolEstudiantes = estudiantesConRol;
+    }
+
+    public Nodo<Estudiantes> getLider() {
+        return lider;
+    }
+
+    public void setLider(Nodo<Estudiantes> lider) {
+        this.lider = lider;
     }
 }
