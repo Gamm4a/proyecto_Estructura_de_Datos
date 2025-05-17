@@ -89,11 +89,8 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> {
      * @param dato elemento a buscar.
      * @return El elemento encontrado.
      */
-    public T buscar(T dato) {
-        if (dato == null) {
-            throw new IllegalArgumentException("El dato a buscar no puede ser null.");
-        }
-        return buscar(raiz, dato);
+    public T buscarPorAtributo(Function<T, Comparable> extractor, Comparable valorBuscado) {
+        return buscarPorAtributo(raiz, extractor, valorBuscado);
     }
     
     /**
