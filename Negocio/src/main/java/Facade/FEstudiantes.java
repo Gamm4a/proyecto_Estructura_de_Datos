@@ -19,6 +19,12 @@ public class FEstudiantes implements IEstudiantes{
     public void registrarEstudiante(Estudiantes estudiante) {
         arbol.insertar(estudiante);
     }
+
+    @Override
+    public void eliminarEstudiante(String matricula) {
+        Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
+        arbol.eliminar(estudiante);
+    }
     
     @Override
     public Estudiantes buscarEstudiante(String matricula){
