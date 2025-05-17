@@ -12,13 +12,7 @@ import ObjetosNegocio.Estudiantes;
  */
 public interface IEstudiantes {
 
-    public abstract void agregarCalificacion(double calificacion);
-    
-    public double calcularPromedio();
-    
-    
-    public boolean modificarCalificacion(double calificacion, double calNueva);
-    
+    void registrarEstudiante(Estudiantes estudiante);
 
-    public void registrarEstudiante(Estudiantes estudiante);
+    Estudiantes buscarEstudiante(String matricula);
 }
