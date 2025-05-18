@@ -76,6 +76,7 @@ public class FInscripciones implements IInscripciones {
         }
 
         curso.getInscritos().eliminar(estudiante);
+        curso.getRolEstudiantes().eliminar(estudiante);
 
         if (!curso.getListaEspera().estaVacia()) {
             Estudiantes siguiente = curso.getListaEspera().getInicio().getDato();
