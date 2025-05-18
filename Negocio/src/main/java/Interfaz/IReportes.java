@@ -4,6 +4,8 @@
  */
 package Interfaz;
 
+import ObjetosNegocio.Estudiantes;
+
 /**
  *
  * @author 52644
@@ -12,6 +14,6 @@ public interface IReportes {
     
     void listarPorPromedio();
     
-    void rotarRol(String clave);
+    Estudiantes rotarRol(String clave);
 }
 
