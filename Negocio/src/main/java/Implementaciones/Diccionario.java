@@ -7,15 +7,27 @@ package Implementaciones;
 /**
  *
  * @author Camila Zubía
- * @param <K>
- * @param <V>
+ * @param <K> Tipo genérico de los elementos almacenados en la lista.
+ * @param <V> Tipo genérico de los elementos almacenados en la lista.
  */
 public class Diccionario<K, V> {
+
+    /**
+     * clase interna que representa una entrada en el diccionario.
+     * @param <K>
+     * @param <V> 
+     */
     public class Entrada<K, V> {
 
         private final K llave;
         private V valor;
 
+        /**
+         * construye una nueva entrada con clave y valor especificados.
+         *
+         * @param llave Clave de la entrada.
+         * @param valor Valor asociado a la clave.
+         */
         public Entrada(K llave, V valor) {
             this.llave = llave;
             this.valor = valor;
@@ -31,15 +43,31 @@ public class Diccionario<K, V> {
     private int nEntradas;
     private final int tamTablaHash;
 
+    /**
+     * construye un nuevo diccionario con la tabla hash y tamaño especificados.
+     *
+     * @param tablaHash Arreglo de listas enlazadas usado como tabla hash.
+     * @param tamTablaHash Tamaño de la tabla hash.
+     */
     public Diccionario(ListaEnlazada<Entrada<K, V>>[] tablaHash, int tamTablaHash) {
         this.tablaHash = tablaHash;
         this.tamTablaHash = tamTablaHash;
     }
 
+    /**
+     * obtiene el indice que corresponde a la clave.
+     * @param llave
+     * @return 
+     */
     private int getIndexHashTable(K llave) {
         return Math.abs(llave.hashCode()) % tamTablaHash;
     }
 
+    /**
+     * regresa el valor que corresponde a la clave.
+     * @param llave
+     * @return 
+     */
     public V get(K llave) {
         int indice = getIndexHashTable(llave);
         ListaEnlazada<Entrada<K, V>> balde = tablaHash[indice];
@@ -60,6 +88,11 @@ public class Diccionario<K, V> {
         return get(balde, llave, i + 1);
     }
 
+    /**
+     * verifica que la llave este en el diccionario.
+     * @param llave la llave que se busca.
+     * @return 
+     */
     public boolean contains(K llave) {
         int indice = getIndexHashTable(llave);
         ListaEnlazada<Entrada<K, V>> balde = tablaHash[indice];
@@ -79,6 +112,9 @@ public class Diccionario<K, V> {
         return contains(balde, llave, i + 1);
     }
 
+    /**
+     * vacia el diccionario.
+     */
     public void clear() {
         clear(0);
         nEntradas = 0;
@@ -95,6 +131,10 @@ public class Diccionario<K, V> {
         clear(i + 1);
     }
 
+    /**
+     * devuelve una lista con todas las llaves.
+     * @return 
+     */
     public ListaEnlazada<K> keys() {
         ListaEnlazada<K> resultado = new ListaEnlazada<>();
         keys(0, resultado);
@@ -119,6 +159,10 @@ public class Diccionario<K, V> {
         keysInBucket(balde, j + 1, resultado);
     }
 
+    /**
+     * devuelve una lista con todos los valores
+     * @return 
+     */
     public ListaEnlazada<V> values() {
         ListaEnlazada<V> resultado = new ListaEnlazada<>();
         values(0, resultado);
@@ -143,6 +187,15 @@ public class Diccionario<K, V> {
         valuesInBucket(balde, j + 1, resultado);
     }
 
+    /**
+     * inserta una clave con un valor, pero si la clave ya existe entonces 
+     * modifica el valor.
+     * @param balde
+     * @param llave
+     * @param valor
+     * @param i
+     * @return 
+     */
     public V put(K llave, V valor) {
         int indice = getIndexHashTable(llave);
         if (tablaHash[indice] == null) {
@@ -166,6 +219,11 @@ public class Diccionario<K, V> {
         return put(balde, llave, valor, i + 1);
     }
 
+    /**
+     * elimina una llave del diccionario.
+     * @param llave
+     * @return 
+     */
     public V remove(K llave) {
         int indice = getIndexHashTable(llave);
         if (tablaHash[indice] == null) {
@@ -188,14 +246,25 @@ public class Diccionario<K, V> {
         return remove(balde, llave, i + 1);
     }
 
+    /**
+     * regresa el tamaño del diccionario.
+     * @return 
+     */
     public int size() {
         return nEntradas;
     }
 
+    /**
+     * verifica si el diccionario esta vacio.
+     * @return 
+     */
     public boolean empty() {
         return nEntradas == 0;
     }
-    
+
+    /**
+     * imprime todo el diccionario.
+     */
     public void imprimir() {
         imprimir(0);
     }
