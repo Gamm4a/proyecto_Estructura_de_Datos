@@ -10,29 +10,47 @@ import Implementaciones.ArregloCalificaciones;
  * @author Luis Rafael
  */
 public class Estudiantes implements Comparable<Estudiantes> {
-    
+
+    /**
+     * clase interna que representa la direccion del estudiante.
+     */
     public class Direccion {
-    private String calle;
-    private String numero;
-    private String colonia;
-    private String ciudad;
+        private String calle;
+        private String numero;
+        private String colonia;
+        private String ciudad;
 
-    public Direccion(String calle, String numero, String colonia, String ciudad) {
-        this.calle = calle;
-        this.numero = numero;
-        this.colonia = colonia;
-        this.ciudad = ciudad;
+        /**
+         * constructor que crea la direccion.
+         * @param calle
+         * @param numero
+         * @param colonia
+         * @param ciudad 
+         */
+        public Direccion(String calle, String numero, String colonia, String ciudad) {
+            this.calle = calle;
+            this.numero = numero;
+            this.colonia = colonia;
+            this.ciudad = ciudad;
+        }
+    
+        @Override
+        public String toString() {
+            return calle + " #" + numero + ", " + colonia + ", " + ciudad;
+        }
     }
-
-    @Override
-    public String toString() {
-        return calle + " #" + numero + ", " + colonia + ", " + ciudad;
-    }
-}
     private String nombre, matricula, telefono, correo;
     private Direccion direccion;
     private ArregloCalificaciones<Double> calificaciones;
-    
+
+    /**
+     * constructor que crea un estudiante.
+     * @param matricula
+     * @param nombre
+     * @param telefono
+     * @param correo
+     * @param direccion 
+     */
     public Estudiantes(String matricula, String nombre, String telefono, String correo, Direccion direccion){
         this.matricula = matricula;
         this.nombre = nombre;
@@ -43,6 +61,11 @@ public class Estudiantes implements Comparable<Estudiantes> {
     }
 
     
+    /**
+     * Compara el estudiante con otro por su matricula, para el arbol de busqueda.
+     * @param o
+     * @return 
+     */
     @Override
     public int compareTo(Estudiantes o) {
         return this.matricula.compareTo(o.matricula);
