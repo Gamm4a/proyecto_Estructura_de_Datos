@@ -29,7 +29,6 @@ public class Accion {
     private Double calificacionAnterior;
     private Double calificacionNueva;
     private int posicionCalificacion;
-    private Pila<Accion> pila;
 
     public Accion(Tipo tipo, Estudiantes estudiante, Cursos curso,
             Double calificacionAnterior, Double calificacionNueva, int posicion) {
@@ -79,13 +78,5 @@ public class Accion {
 
     public int getPosicionCalificacion() {
         return posicionCalificacion;
-    }
-
-    public Pila<Accion> getPila() {
-        return pila;
-    }
-
-    public void setPila(Pila<Accion> pila) {
-        this.pila = pila;
     }
 }
