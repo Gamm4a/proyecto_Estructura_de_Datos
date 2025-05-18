@@ -18,6 +18,15 @@ import static ObjetosNegocio.Accion.Tipo.*;
 public class FCursos implements ICursos{
     private Accion accion;
     private Diccionario<String, Cursos> cursos;
+
+    /**
+     * constructor que inicializa la clase con el parametro diccionario, el cual
+     * se comparte entre diferentes clases.
+     * @param cursos 
+     */
+    public FCursos(Diccionario<String, Cursos> cursos) {
+        this.cursos = cursos;
+    }
     
     /**
      * metodo para agregar un curso
