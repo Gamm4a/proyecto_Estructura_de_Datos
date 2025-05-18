@@ -81,6 +81,7 @@ public class ListaEnlazadaCircular<T> {
         }
         tamaño++;
     }
+    
     /**
      * elimina el primer nodo de la lista
      */
@@ -99,6 +100,10 @@ public class ListaEnlazadaCircular<T> {
         tamaño--;
     }
 
+    /**
+     * verifica si la lista esta vacia.
+     * @return 
+     */
     public boolean vacia() {
         return tamaño == 0;
     }
