@@ -9,6 +9,8 @@ import ObjetosNegocio.Cursos;
 import ObjetosNegocio.Estudiantes;
 import Implementaciones.ArbolBinarioBusqueda;
 import Implementaciones.Diccionario;
+import ObjetosNegocio.Accion;
+import static ObjetosNegocio.Accion.Tipo.*;
 
 /**
  *
@@ -28,6 +30,9 @@ public class FInscripciones implements IInscripciones{
         }
         cursoInscribir.getInscritos().agregarUltimo(estudiante);
         cursoInscribir.getRolEstudiantes().agregar(estudiante);
+        
+        Accion accion = new Accion(INSCRIPCION, estudiante, cursoInscribir, null, null, 0);
+        accion.getPila().add(accion);
     }
 
     @Override
@@ -39,6 +44,9 @@ public class FInscripciones implements IInscripciones{
             Estudiantes est = cursoEliminar.getListaEspera().getInicio().getDato();
             cursoEliminar.getInscritos().agregarUltimo(est);
         }
+        
+        Accion accion = new Accion(BAJA_ESTUDIANTE, estudiante, cursoEliminar, null, null, 0);
+        accion.getPila().add(accion);
     }
 
     @Override
