@@ -15,14 +15,14 @@ import static ObjetosNegocio.Accion.Tipo.*;
  * @author Luis Rafael
  */
 public class FEstudiantes implements IEstudiantes{
-    private ArbolBinarioBusqueda<Estudiantes> arbol;
+    private ArbolBinarioBusqueda<Estudiantes> arbol = new ArbolBinarioBusqueda();
     
     @Override
     public void registrarEstudiante(Estudiantes estudiante) {
         arbol.insertar(estudiante);
         
         Accion accion = new Accion(REGISTRO_ESTUDIANTE, estudiante, null, null, null, 0);
-        accion.getPila().add(accion);
+        FDeshacer.registrarAccion(accion);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class FEstudiantes implements IEstudiantes{
         arbol.eliminar(estudiante);
         
         Accion accion = new Accion(ELIMINAR_ESTUDIANTE, estudiante, null, null, null, 0);
-        accion.getPila().add(accion);
+        FDeshacer.registrarAccion(accion);
     }
     
     @Override
