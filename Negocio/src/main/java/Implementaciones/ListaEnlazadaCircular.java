@@ -101,6 +101,45 @@ public class ListaEnlazadaCircular<T> {
     }
 
     /**
+     * Recorre la lista y elimina el primer dato que coincida.
+     *
+     * @param dato elemento a eliminar
+     */
+    public void eliminar(T dato) {
+        if (inicio == null) {
+            return;
+        }
+
+        if (inicio == fin && inicio.getDato().equals(dato)) {
+            inicio = null;
+            fin = null;
+            tamaño--;
+            return;
+        }
+
+        Nodo<T> actual = inicio;
+        Nodo<T> anterior = fin;
+
+        do {
+            if (actual.getDato().equals(dato)) {
+                if (actual == inicio) {
+                    inicio = inicio.getSig();
+                    fin.setSig(inicio);
+                } else if (actual == fin) {
+                    fin = anterior;
+                    fin.setSig(inicio);
+                } else {
+                    anterior.setSig(actual.getSig());
+                }
+                tamaño--;
+                return;
+            }
+            anterior = actual;
+            actual = actual.getSig();
+        } while (actual != inicio);
+    }
+
+    /**
      * verifica si la lista esta vacia.
      * @return 
      */
