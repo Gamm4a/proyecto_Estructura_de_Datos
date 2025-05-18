@@ -16,13 +16,13 @@ import static ObjetosNegocio.Accion.Tipo.*;
  */
 public class FCursos implements ICursos{
 
-    private Diccionario<String, Cursos> cursos;
+    private Diccionario<String, Cursos> cursos = new Diccionario();
 
     @Override
     public void agregarCurso(String clave, Cursos curso) {
         cursos.put(clave, curso);
         Accion accion = new Accion(AGREGAR_CURSO, null, curso, null, null, 0);
-        accion.getPila().add(accion);
+        FDeshacer.registrarAccion(accion);
     }
 
     @Override
@@ -30,11 +30,11 @@ public class FCursos implements ICursos{
         Cursos cursoEliminado = cursos.get(clave);
         cursos.remove(clave);
         Accion accion = new Accion(ELIMINAR_CURSO, null, cursoEliminado, null, null, 0);
-        accion.getPila().add(accion);
+        FDeshacer.registrarAccion(accion);
     }
 
     @Override
     public void mostrarCursos() {
-        cursos.imprimir();
+        FDeshacer.registrarAccion(accion);
     }
 }
