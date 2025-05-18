@@ -4,6 +4,8 @@
  */
 package ObjetosNegocio;
 
+import Implementaciones.Pila;
+
 /**
  *
  * @author Camila Zubía
@@ -27,6 +29,7 @@ public class Accion {
     private Double calificacionAnterior;
     private Double calificacionNueva;
     private int posicionCalificacion;
+    private Pila<Accion> pila;
 
     public Accion(Tipo tipo, Estudiantes estudiante, Cursos curso,
             Double calificacionAnterior, Double calificacionNueva, int posicion) {
@@ -44,6 +47,14 @@ public class Accion {
 
     public void setEstudianteInvolucrado(Estudiantes estudianteInvolucrado) {
         this.estudianteInvolucrado = estudianteInvolucrado;
+    }
+
+    public Cursos getCursoInvolucrado() {
+        return cursoInvolucrado;
+    }
+
+    public void setCursoInvolucrado(Cursos cursoInvolucrado) {
+        this.cursoInvolucrado = cursoInvolucrado;
     }
     
     public Tipo getTipo() {
@@ -68,5 +79,13 @@ public class Accion {
 
     public int getPosicionCalificacion() {
         return posicionCalificacion;
+    }
+
+    public Pila<Accion> getPila() {
+        return pila;
+    }
+
+    public void setPila(Pila<Accion> pila) {
+        this.pila = pila;
     }
 }
