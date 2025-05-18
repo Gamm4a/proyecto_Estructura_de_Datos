@@ -16,7 +16,7 @@ import Implementaciones.Cola;
  *
  * @author Luis Rafael
  */
-public class FCalificaciones implements ICalificaciones{
+public class FCalificaciones implements ICalificaciones {
 
     private ArbolBinarioBusqueda<Estudiantes> arbol;
     private Cola<Accion> colaSolicitudes = new Cola<>();
@@ -28,61 +28,150 @@ public class FCalificaciones implements ICalificaciones{
     @Override
     public void agregarCalificacion(Accion accion) {
         Estudiantes estudiante = accion.getEstudiante();
-        estudiante.getCalificaciones().agregarElemento(accion.getCalificacionNueva());
-        FDeshacer.registrarAccion(accion);
-    }
-
-    @Override
-    public double calcularPromedio(String matricula) {
-        Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
         ArregloCalificaciones<Double> calificaciones = estudiante.getCalificaciones();
-        double suma = 0.0;
-        if (calificaciones.getTam() == 0) {
-            return 0.0;
-        }
-        for (int i = 0; i < calificaciones.getTam(); i++) {
-            suma += calificaciones.obtenerElemento(i);
-        }
-        return suma / calificaciones.getTam();
+
+        calificaciones.agregarElemento(accion.getCalificacionNueva());
+
+        int pos = calificaciones.getTam() - 1;
+
+        Accion accionFinal = new Accion(
+                Accion.Tipo.CALIFICACION_AGREGADA,
+                estudiante, null, null,
+                accion.getCalificacionNueva(),
+                pos
+        );
+
+        FDeshacer.registrarAccion(accionFinal);
+        System.out.println("Calificación agregada.");
     }
 
     @Override
     public boolean modificarCalificacion(Accion accion) {
         Estudiantes estudiante = accion.getEstudiante();
+        ArregloCalificaciones<Double> calificaciones = estudiante.getCalificaciones();
 
-        FDeshacer.registrarAccion(accion);
 
-        return estudiante.getCalificaciones().modificarElemento(accion.getCalificacionAnterior(), accion.getCalificacionNueva());
-    } 
+        boolean ok = calificaciones.modificarElemento(accion.getCalificacionAnterior(), accion.getCalificacionNueva());
+
+        if (ok) {
+            Accion accionFinal = new Accion(
+                    Accion.Tipo.CALIFICACION_MODIFICADA,
+                    estudiante, null,
+                    accion.getCalificacionAnterior(),
+                    accion.getCalificacionNueva(),
+                    -1
+            );
+            FDeshacer.registrarAccion(accionFinal);
+            System.out.println("Calificación modificada.");
+        }
+
+        return ok;
+    }
 
     @Override
     public void eliminarCalificacion(String matricula, int posicion) {
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
+
+        if (estudiante == null) {
+            System.out.println("Estudiante no encontrado.");
+            return;
+        }
+
         ArregloCalificaciones<Double> calificaciones = estudiante.getCalificaciones();
+
+        if (posicion < 0 || posicion >= calificaciones.getTam()) {
+            System.out.println("Posición inválida.");
+            return;
+        }
+
+        Double calAnterior = calificaciones.obtenerElemento(posicion);
         calificaciones.eliminarElemento(posicion);
+
+        Accion accion = new Accion(
+                Accion.Tipo.CALIFICACION_AGREGADA,
+                estudiante, null,
+                calAnterior, null,
+                posicion
+        );
+        FDeshacer.registrarAccion(accion);
+        System.out.println("Calificación eliminada.");
+    }
+
+    @Override
+    public double calcularPromedio(String matricula) {
+        Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
+
+        if (estudiante == null) {
+            System.out.println("Estudiante no encontrado.");
+            return 0.0;
+        }
+
+        ArregloCalificaciones<Double> calificaciones = estudiante.getCalificaciones();
+        if (calificaciones.getTam() == 0) {
+            return 0.0;
+        }
+
+        double suma = 0.0;
+        for (int i = 0; i < calificaciones.getTam(); i++) {
+            suma += calificaciones.obtenerElemento(i);
+        }
+
+        return suma / calificaciones.getTam();
     }
 
     @Override
     public void enviarSolicitudAgregarCalificaion(String matricula, double calificacion) {
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
-        Accion accion = new Accion(CALIFICACION_AGREGADA, estudiante, null, null, calificacion, 0);
-        cola.add(accion);
+
+        if (estudiante == null) {
+            System.out.println("Estudiante no encontrado.");
+            return;
+        }
+
+        Accion accion = new Accion(
+                Accion.Tipo.CALIFICACION_AGREGADA,
+                estudiante, null, null,
+                calificacion, -1
+        );
+
+        colaSolicitudes.enqueue(accion);
+        System.out.println("Solicitud de agregar calificación enviada.");
     }
 
     @Override
-    public void enviarSolicitudModificarCalificaion(String matricula, double calificacion, double calNueva) {
+    public void enviarSolicitudModificarCalificaion(String matricula, double calAnterior, double calNueva) {
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
-        Accion accion = new Accion(CALIFICACION_MODIFICADA, estudiante, null, calificacion, calNueva, 0);
-        cola.add(accion);
+
+        if (estudiante == null) {
+            System.out.println("Estudiante no encontrado.");
+            return;
+        }
+
+        Accion accion = new Accion(
+                Accion.Tipo.CALIFICACION_MODIFICADA,
+                estudiante, null,
+                calAnterior, calNueva,
+                -1
+        );
+        colaSolicitudes.enqueue(accion);
+        System.out.println("Solicitud de modificar calificación enviada.");
     }
 
     @Override
     public void procesarSolicitud() {
-        if (cola.dequeue().getTipo().equals(CALIFICACION_AGREGADA)) {
-            agregarCalificacion(cola.dequeue());
+        
+        if (colaSolicitudes.vacia()){
+            System.out.println("No hay solicitudes pendientes.");
+            return;
         }
-        if (cola.dequeue().getTipo().equals(CALIFICACION_MODIFICADA)) {
-            modificarCalificacion(cola.dequeue());
+        Accion accion = colaSolicitudes.dequeue();
+        switch (accion.getTipo()) {
+            case CALIFICACION_AGREGADA -> agregarCalificacion(accion);
+
+            case CALIFICACION_MODIFICADA -> modificarCalificacion(accion);
+
+            default -> System.out.println("Tipo de solicitud no reconocida.");
         }
     }
 }
+
