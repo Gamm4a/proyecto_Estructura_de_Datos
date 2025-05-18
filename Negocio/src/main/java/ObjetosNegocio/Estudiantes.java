@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ObjetosNegocio;
+
+import Implementaciones.ArregloCalificaciones;
 /**
  *
  * @author Luis Rafael
@@ -29,7 +31,7 @@ public class Estudiantes implements Comparable<Estudiantes> {
 }
     private String nombre, matricula, telefono, correo;
     private Direccion direccion;
-    private ArregloCalificaciones<Integer> calificaciones;
+    private ArregloCalificaciones<Double> calificaciones;
     
     public Estudiantes(String matricula, String nombre, String telefono, String correo, Direccion direccion){
         this.matricula = matricula;
@@ -37,6 +39,7 @@ public class Estudiantes implements Comparable<Estudiantes> {
         this.telefono = telefono;
         this.correo = correo;
         this.direccion = direccion;
+        this.calificaciones = new ArregloCalificaciones(5);
     }
 
     
