@@ -32,7 +32,7 @@ public class FInscripciones implements IInscripciones{
         cursoInscribir.getRolEstudiantes().agregar(estudiante);
         
         Accion accion = new Accion(INSCRIPCION, estudiante, cursoInscribir, null, null, 0);
-        accion.getPila().add(accion);
+        FDeshacer.registrarAccion(accion);
     }
 
     @Override
@@ -46,7 +46,7 @@ public class FInscripciones implements IInscripciones{
         }
         
         Accion accion = new Accion(BAJA_ESTUDIANTE, estudiante, cursoEliminar, null, null, 0);
-        accion.getPila().add(accion);
+        FDeshacer.registrarAccion(accion);
     }
 
     @Override
