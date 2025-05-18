@@ -25,6 +25,9 @@ public class Cursos {
     public Cursos(String clave, String nombre) {
         this.clave = clave;
         this.nombre = nombre;
+        this.rolEstudiantes = new ListaEnlazadaCircular();
+        this.inscritos = new ListaEstudiantes();
+        this.listaEspera = new ListaDobleCircular();
         this.lider = rolEstudiantes.getInicio();
     }
 
@@ -74,5 +77,9 @@ public class Cursos {
 
     public void setLider(Nodo<Estudiantes> lider) {
         this.lider = lider;
+    }
+
+    public static int getMAX_INSCRITOS() {
+        return MAX_INSCRITOS;
     }
 }
