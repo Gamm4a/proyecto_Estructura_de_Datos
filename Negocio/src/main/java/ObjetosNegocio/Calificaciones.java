@@ -17,6 +17,11 @@ public class Calificaciones implements Comparable<Calificaciones>{
     private Estudiantes estudiante;
     FCalificaciones gestorCalificaciones;
 
+    /**
+     * constructor que crea una instancia calificaion donde se guarda la referencia
+     * a un estudiante y su promedio.
+     * @param estudiante 
+     */
     public Calificaciones(Estudiantes estudiante) {
         this.promedio = gestorCalificaciones.calcularPromedio(estudiante.getMatricula());
         this.estudiante = estudiante;
@@ -29,6 +34,11 @@ public class Calificaciones implements Comparable<Calificaciones>{
         return estudiante;
     }
 
+    /**
+     * compara la calificacion de un estudiante con otra, para el arbol AVL.
+     * @param o
+     * @return 
+     */
     @Override
     public int compareTo(Calificaciones o) {
         int comp = Double.compare(this.promedio, o.promedio);
