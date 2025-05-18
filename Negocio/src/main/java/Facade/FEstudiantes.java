@@ -7,6 +7,8 @@ package Facade;
 import Implementaciones.ArbolBinarioBusqueda;
 import Interfaz.IEstudiantes;
 import ObjetosNegocio.Estudiantes;
+import ObjetosNegocio.Accion;
+import static ObjetosNegocio.Accion.Tipo.*;
 
 /**
  *
@@ -18,12 +20,18 @@ public class FEstudiantes implements IEstudiantes{
     @Override
     public void registrarEstudiante(Estudiantes estudiante) {
         arbol.insertar(estudiante);
+        
+        Accion accion = new Accion(REGISTRO_ESTUDIANTE, estudiante, null, null, null, 0);
+        accion.getPila().add(accion);
     }
 
     @Override
     public void eliminarEstudiante(String matricula) {
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
         arbol.eliminar(estudiante);
+        
+        Accion accion = new Accion(ELIMINAR_ESTUDIANTE, estudiante, null, null, null, 0);
+        accion.getPila().add(accion);
     }
     
     @Override
