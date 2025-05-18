@@ -33,6 +33,30 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> {
             this.der = null;
             this.altura = 1;
         }
+
+        public T getDato() {
+            return dato;
+        }
+
+        public void setDato(T dato) {
+            this.dato = dato;
+        }
+
+        public Nodo<T> getIzq() {
+            return izq;
+        }
+
+        public void setIzq(Nodo<T> izq) {
+            this.izq = izq;
+        }
+
+        public Nodo<T> getDer() {
+            return der;
+        }
+
+        public void setDer(Nodo<T> der) {
+            this.der = der;
+        }
     }
     
     /**
@@ -80,8 +104,44 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> {
      * @param dato dato a insertar.
      * @return 
      */
-    private Nodo<T> eliminar(Nodo<T> nodo, T dato){   
-        return null;   
+    private Nodo<T> eliminar(Nodo<T> nodo, T dato) {
+        if (nodo == null) {
+            return null;
+        }
+
+        int cmp = dato.compareTo(nodo.dato);
+        if (cmp < 0) {
+            nodo.izq = eliminar(nodo.izq, dato);
+        } else if (cmp > 0) {
+            nodo.der = eliminar(nodo.der, dato);
+        } else {
+            if (nodo.izq == null && nodo.der == null) {
+                return null;
+            }
+            else if (nodo.izq == null) {
+                return nodo.der;
+            } else if (nodo.der == null) {
+                return nodo.izq;
+            }
+            else {
+                Nodo<T> sucesor = encontrarMinimo(nodo.der);
+                nodo.dato = sucesor.dato;
+                nodo.der = eliminar(nodo.der, sucesor.dato);
+            }
+        }
+        return nodo;
+    }
+
+    /**
+     * Regresa el Nodo con el elemento minimo.
+     * @param nodo
+     * @return 
+     */
+    private Nodo<T> encontrarMinimo(Nodo<T> nodo) {
+        while (nodo.izq != null) {
+            nodo = nodo.izq;
+        }
+        return nodo;
     }
     
     /**
