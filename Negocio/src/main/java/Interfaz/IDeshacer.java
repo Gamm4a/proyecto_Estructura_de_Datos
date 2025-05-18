@@ -9,5 +9,7 @@ package Interfaz;
  * @author 52644
  */
 public interface IDeshacer {
-    public abstract String deshacerAccion();
+    
+    void deshacerUltimaAccion();
+
 }
