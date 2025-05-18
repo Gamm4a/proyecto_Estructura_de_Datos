@@ -4,8 +4,6 @@
  */
 package ObjetosNegocio;
 
-import Facade.FCalificaciones;
-
 /**
  *
  * @author Luis Rafael
@@ -15,15 +13,15 @@ public class Calificaciones implements Comparable<Calificaciones>{
 
     private double promedio;
     private Estudiantes estudiante;
-    FCalificaciones gestorCalificaciones;
 
     /**
      * constructor que crea una instancia calificaion donde se guarda la referencia
      * a un estudiante y su promedio.
      * @param estudiante 
+     * @param promedio 
      */
-    public Calificaciones(Estudiantes estudiante) {
-        this.promedio = gestorCalificaciones.calcularPromedio(estudiante.getMatricula());
+    public Calificaciones(Estudiantes estudiante, double promedio) {
+        this.promedio = promedio;
         this.estudiante = estudiante;
     }
     public double getPromedio() {
