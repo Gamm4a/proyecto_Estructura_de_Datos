@@ -17,44 +17,69 @@ import ObjetosNegocio.Estudiantes;
  *
  * @author Luis Rafael
  */
-public class FReportes implements IReportes{
+public class FReportes implements IReportes {
 
     private Diccionario<String, Cursos> cursos;
-    private ArbolAVL<Calificaciones> promediosEstudiantes;
-    ArbolBinarioBusqueda<Estudiantes> arbol;
-    
+    private ArbolBinarioBusqueda<Estudiantes> arbolEstudiantes;
+    private FCalificaciones gestorCalificaciones;
+
+    public FReportes(
+            Diccionario<String, Cursos> cursos,
+            ArbolBinarioBusqueda<Estudiantes> arbolEstudiantes,
+            FCalificaciones gestorCalificaciones
+    ) {
+        this.cursos = cursos;
+        this.arbolEstudiantes = arbolEstudiantes;
+        this.gestorCalificaciones = gestorCalificaciones;
+    }
+
     @Override
-    public Estudiantes rotarRol(String clave) {
-        Cursos cursoMoverRol = cursos.get(clave);
-        if (cursoMoverRol.getRolEstudiantes().vacia()) {
-            System.out.println("no hay estudiantes para asignar rol");
+    public void rotarRol(String claveCurso) {
+        Cursos curso = cursos.get(claveCurso);
+
+        if (curso == null) {
+            System.out.println("Curso no encontrado.");
+            return;
         }
-        cursoMoverRol.setLider(cursoMoverRol.getLider().getSig());
-        return cursoMoverRol.getLider().getDato();
+
+        if (curso.getRolEstudiantes() == null || curso.getRolEstudiantes().vacia()) {
+            System.out.println("No hay estudiantes para rotar el rol.");
+            return;
+        }
+
+        if (curso.getLider() == null) {
+            curso.setLider(curso.getRolEstudiantes().getInicio());
+        } else {
+            curso.setLider(curso.getLider().getSig());
+        }
+
+        Estudiantes nuevoLider = curso.getLider().getDato();
+        System.out.println("Nuevo líder: " + nuevoLider.getNombre());
     }
 
     @Override
     public void listarPorPromedio() {
-        promediosEstudiantes = new ArbolAVL<>();
+        ArbolAVL<Calificaciones> arbolPromedios = new ArbolAVL<>();
 
-        llenarAVLConPromedios(arbol.raiz);
+        recorrerEInsertar(arbolEstudiantes.raiz, arbolPromedios);
 
         System.out.println("Estudiantes ordenados por promedio:");
-        promediosEstudiantes.inOrder();
+        arbolPromedios.inOrder();
     }
 
-    private void llenarAVLConPromedios(Nodo<Estudiantes> nodo) {
+    private void recorrerEInsertar(Nodo<Estudiantes> nodo, ArbolAVL<Calificaciones> arbolPromedios) {
         if (nodo == null) {
             return;
         }
 
-        llenarAVLConPromedios(nodo.getIzq());
+        recorrerEInsertar(nodo.getIzq(), arbolPromedios);
 
         Estudiantes estudiante = nodo.getDato();
+        double promedio = gestorCalificaciones.calcularPromedio(estudiante.getMatricula());
 
-        Calificaciones cal = new Calificaciones(estudiante);
-        promediosEstudiantes.insertar(cal);
+        Calificaciones c = new Calificaciones(estudiante, promedio);
+        arbolPromedios.insertar(c);
 
-        llenarAVLConPromedios(nodo.getDer());
+        recorrerEInsertar(nodo.getDer(), arbolPromedios);
     }
 }
