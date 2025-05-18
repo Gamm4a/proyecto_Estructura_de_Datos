@@ -10,6 +10,7 @@ import Interfaz.ICalificaciones;
 import ObjetosNegocio.Estudiantes;
 import ObjetosNegocio.Accion;
 import static ObjetosNegocio.Accion.Tipo.*;
+import Implementaciones.Cola;
 
 /**
  *
@@ -19,12 +20,13 @@ public class FCalificaciones implements ICalificaciones{
 
     private ArbolBinarioBusqueda<Estudiantes> arbol = new ArbolBinarioBusqueda<>();
 
+    private ArbolBinarioBusqueda<Estudiantes> arbol;
+    private Cola<Accion> cola = new Cola();
+
     @Override
-    public void agregarCalificacion(String matricula, double calificacion) {
-        Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
-        estudiante.getCalificaciones().agregarElemento(calificacion);
-        
-        Accion accion = new Accion(CALIFICACION_AGREGADA, estudiante, null, null, calificacion, 0);
+    public void agregarCalificacion(Accion accion) {
+        Estudiantes estudiante = accion.getEstudiante();
+        estudiante.getCalificaciones().agregarElemento(accion.getCalificacionNueva());
         accion.getPila().add(accion);
     }
 
@@ -43,14 +45,12 @@ public class FCalificaciones implements ICalificaciones{
     }
 
     @Override
-    public boolean modificarCalificacion(String matricula, double calificacion, double calNueva) {
-        Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
-        ArregloCalificaciones<Double> calificaciones = estudiante.getCalificaciones();
-        
-        Accion accion = new Accion(CALIFICACION_MODIFICADA, estudiante, null, calificacion, calNueva, 0);
+    public boolean modificarCalificacion(Accion accion) {
+        Estudiantes estudiante = accion.getEstudiante();
+
         accion.getPila().add(accion);
-        
-        return calificaciones.modificarElemento(calificacion, calNueva);
+
+        return estudiante.getCalificaciones().modificarElemento(accion.getCalificacionAnterior(), accion.getCalificacionNueva());
     } 
 
     @Override
@@ -58,5 +58,29 @@ public class FCalificaciones implements ICalificaciones{
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
         ArregloCalificaciones<Double> calificaciones = estudiante.getCalificaciones();
         calificaciones.eliminarElemento(posicion);
+    }
+
+    @Override
+    public void enviarSolicitudAgregarCalificaion(String matricula, double calificacion) {
+        Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
+        Accion accion = new Accion(CALIFICACION_AGREGADA, estudiante, null, null, calificacion, 0);
+        cola.add(accion);
+    }
+
+    @Override
+    public void enviarSolicitudModificarCalificaion(String matricula, double calificacion, double calNueva) {
+        Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
+        Accion accion = new Accion(CALIFICACION_MODIFICADA, estudiante, null, calificacion, calNueva, 0);
+        cola.add(accion);
+    }
+
+    @Override
+    public void procesarSolicitud() {
+        if (cola.dequeue().getTipo().equals(CALIFICACION_AGREGADA)) {
+            agregarCalificacion(cola.dequeue());
+        }
+        if (cola.dequeue().getTipo().equals(CALIFICACION_MODIFICADA)) {
+            modificarCalificacion(cola.dequeue());
+        }
     }
 }
