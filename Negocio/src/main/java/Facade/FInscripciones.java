@@ -56,7 +56,7 @@ public class FInscripciones implements IInscripciones {
             System.out.println("Estudiante inscrito correctamente.");
         }
 
-        Accion accion = new Accion(Accion.Tipo.INSCRIPCION, estudiante, curso, null, null, 0);
+        Accion accion = new Accion(Accion.Tipo.INSCRIPCION, estudiante, curso, null, null, -1);
         FDeshacer.registrarAccion(accion);
     }
     
@@ -83,7 +83,7 @@ public class FInscripciones implements IInscripciones {
             curso.getListaEspera().eliminarPrimero();
         }
 
-        Accion accion = new Accion(Accion.Tipo.BAJA_ESTUDIANTE, estudiante, curso, null, null, 0);
+        Accion accion = new Accion(Accion.Tipo.BAJA_ESTUDIANTE, estudiante, curso, null, null, -1);
         FDeshacer.registrarAccion(accion);
 
         System.out.println("Estudiante eliminado del curso.");
