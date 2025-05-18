@@ -17,7 +17,7 @@ public class Diccionario<K, V> {
      * @param <K>
      * @param <V> 
      */
-    public class Entrada<K, V> {
+    public static class Entrada<K, V> {
 
         private final K llave;
         private V valor;
