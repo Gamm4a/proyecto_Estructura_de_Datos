@@ -4,17 +4,25 @@
  */
 package Interfaz;
 
+import ObjetosNegocio.Accion;
+
 /**
  *
  * @author 52644
  */
 public interface ICalificaciones {
 
-    void agregarCalificacion(String matricula, double calificacion);
+    void agregarCalificacion(Accion accion);
 
     void eliminarCalificacion(String matricula, int posicion);
 
     double calcularPromedio(String matricula);
 
-    void modificarCalificacion(String matricula, double calificacion, double calNueva);
+    boolean modificarCalificacion(Accion accion);
+    
+    void enviarSolicitudAgregarCalificaion(String matricula, double calificacion);
+    
+    void enviarSolicitudModificarCalificaion(String matricula, double calificacion, double calNueva);
+    
+    void procesarSolicitud();
 }
