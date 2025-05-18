@@ -23,6 +23,9 @@ public class FInscripciones implements IInscripciones{
     public void inscribirEstudianteEnCurso(String matricula, String clave) {
         Cursos cursoInscribir = cursos.get(clave);
         Estudiantes estudiante = estudiantes.buscarPorAtributo(e -> e.getMatricula(), matricula);
+        if(cursoInscribir.getInscritos().getTamaño() >= Cursos.getMAX_INSCRITOS()){
+            cursoInscribir.getListaEspera().agregar(estudiante);
+        }
         cursoInscribir.getInscritos().agregarUltimo(estudiante);
         cursoInscribir.getRolEstudiantes().agregar(estudiante);
     }
@@ -32,6 +35,10 @@ public class FInscripciones implements IInscripciones{
         Cursos cursoEliminar = cursos.get(clave);
         Estudiantes estudiante = estudiantes.buscarPorAtributo(e -> e.getMatricula(), matricula);
         cursoEliminar.getInscritos().eliminar(estudiante);
+        if (!cursoEliminar.getListaEspera().estaVacia()) {
+            Estudiantes est = cursoEliminar.getListaEspera().getInicio().getDato();
+            cursoEliminar.getInscritos().agregarUltimo(est);
+        }
     }
 
     @Override
