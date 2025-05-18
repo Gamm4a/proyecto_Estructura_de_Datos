@@ -22,6 +22,11 @@ public class Cursos {
     
     public static final int MAX_INSCRITOS = 30;
 
+    /**
+     * constructor que crea un nuevo curso e inicializa las listas.
+     * @param clave
+     * @param nombre 
+     */
     public Cursos(String clave, String nombre) {
         this.clave = clave;
         this.nombre = nombre;
