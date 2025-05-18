@@ -18,8 +18,6 @@ import Implementaciones.Cola;
  */
 public class FCalificaciones implements ICalificaciones{
 
-    private ArbolBinarioBusqueda<Estudiantes> arbol = new ArbolBinarioBusqueda<>();
-
     private ArbolBinarioBusqueda<Estudiantes> arbol;
     private Cola<Accion> cola = new Cola();
 
@@ -27,7 +25,7 @@ public class FCalificaciones implements ICalificaciones{
     public void agregarCalificacion(Accion accion) {
         Estudiantes estudiante = accion.getEstudiante();
         estudiante.getCalificaciones().agregarElemento(accion.getCalificacionNueva());
-        accion.getPila().add(accion);
+        FDeshacer.registrarAccion(accion);
     }
 
     @Override
@@ -48,7 +46,7 @@ public class FCalificaciones implements ICalificaciones{
     public boolean modificarCalificacion(Accion accion) {
         Estudiantes estudiante = accion.getEstudiante();
 
-        accion.getPila().add(accion);
+        FDeshacer.registrarAccion(accion);
 
         return estudiante.getCalificaciones().modificarElemento(accion.getCalificacionAnterior(), accion.getCalificacionNueva());
     } 
