@@ -13,9 +13,15 @@ import Interfaz.IDeshacer;
  * @author Luis Rafael
  */
 public class FDeshacer implements IDeshacer{
+    
+    private static Pila<Accion> pila = new Pila<>();
+    
+    public static void registrarAccion(Accion accion) {
+        pila.push(accion);
+    }
 
     @Override
-    public String deshacerAccion() {
-        return "se deciso de la accion correctamente";
+    public void deshacerUltimaAccion() {
+        
     }
 }
