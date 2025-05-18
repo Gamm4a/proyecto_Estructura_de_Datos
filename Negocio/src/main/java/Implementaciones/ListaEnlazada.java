@@ -7,20 +7,26 @@ package Implementaciones;
 /**
  *
  * @author Camila Zubía
- * @param <T>
+ * @param <T> Tipo de dato almacenado en el nodo.
  */
 public class ListaEnlazada<T> {
 
     private NodoSimple<T> p;
-    
+
+    /**
+     * Constructor por defecto. Inicializa una lista vacía.
+     */
     public ListaEnlazada(){
         
     }
 
-    public ListaEnlazada(T dato) {
-        this.p = new NodoSimple<>(dato);
-    }
-
+    /**
+     * Clase interna que representa un nodo simple de la lista. 
+     * dato: un valor almacenado
+     * sig: referencia al siguiente nodo
+     *
+     * @param <T> Tipo de dato almacenado en el nodo.
+     */
     public class NodoSimple<T> {
 
         private T dato;
@@ -48,6 +54,14 @@ public class ListaEnlazada<T> {
         }
     }
 
+    /**
+     * Establece un nuevo dato en la posición especificada. Si el índice es
+     * inválido o excede el tamaño de la lista, no se realiza ninguna
+     * modificación.
+     *
+     * @param o El nuevo dato a establecer.
+     * @param i El índice de la posición donde se colocará el dato.
+     */
     public void set(T o, int i) {
         if (i < 0) {
             return;
@@ -65,6 +79,12 @@ public class ListaEnlazada<T> {
         }
     }
 
+    /**
+     * Obtiene el dato almacenado en la posición especificada.
+     *
+     * @param i Índice del elemento a obtener.
+     * @return El dato en la posición indicada, nulo si es invalido.
+     */
     public T get(int i) {
         if (i < 0) {
             return null;
@@ -80,6 +100,10 @@ public class ListaEnlazada<T> {
         return nodo != null ? nodo.getDato() : null;
     }
 
+    /**
+     * Agrega un nuevo elemento a la lista.
+     * @param o elemento que se va a agregar.
+     */
     public void add(T o) {
         NodoSimple<T> nuevo = new NodoSimple<>(o);
         if (p == null) {
@@ -93,6 +117,10 @@ public class ListaEnlazada<T> {
         }
     }
 
+    /**
+     * Remueve un elemento de la lista dependiendo de su posicion.
+     * @param i posicion del elemento que se quiere agregar.
+     */
     public void remove(int i) {
         if (i < 0 || p == null) {
             return;
@@ -117,7 +145,11 @@ public class ListaEnlazada<T> {
         }
     }
 
-    
+    /**
+     * Remueve un elemento de la lista, la primera aparicion.
+     * @param o elemento a eliminar.
+     * @return 
+     */
     public boolean remove(T o) {
         if (p == null) {
             return false;
@@ -139,6 +171,11 @@ public class ListaEnlazada<T> {
         return false;
     }
 
+    /**
+     * Regresa el indice de un elemento.
+     * @param o elemento del cual se busca el indice.
+     * @return 
+     */
     public int indexOf(T o) {
         NodoSimple<T> actual = p;
         int index = 0;
@@ -152,10 +189,17 @@ public class ListaEnlazada<T> {
         return -1;
     }
 
+    /**
+     * Vacia la lista.
+     */
     public void clear() {
         p = null;
     }
 
+    /**
+     * Regresa el tamaño de la lista.
+     * @return 
+     */
     public int size() {
         int count = 0;
         NodoSimple<T> actual = p;
@@ -164,5 +208,17 @@ public class ListaEnlazada<T> {
             actual = actual.getSig();
         }
         return count;
+    }
+
+    /**
+     * imprime los valores de la lista.
+     */
+    public void imprimir() {
+        NodoSimple<T> actual = p;
+        while (actual != null) {
+            System.out.print(actual.getDato() + " -> ");
+            actual = actual.sig;
+        }
+        System.out.println("null");
     }
 }
