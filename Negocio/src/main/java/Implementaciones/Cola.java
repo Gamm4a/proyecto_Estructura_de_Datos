@@ -13,6 +13,9 @@ public class Cola<T> extends ListaEnlazada<T> {
     
     private NodoSimple<T> p;
 
+    /**
+     * crea una instancia cola
+     */
     public Cola() {
     }
     
