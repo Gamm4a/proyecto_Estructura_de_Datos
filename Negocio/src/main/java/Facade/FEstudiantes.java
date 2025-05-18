@@ -14,28 +14,62 @@ import static ObjetosNegocio.Accion.Tipo.*;
  *
  * @author Luis Rafael
  */
-public class FEstudiantes implements IEstudiantes{
-    private ArbolBinarioBusqueda<Estudiantes> arbol = new ArbolBinarioBusqueda();
-    
+public class FEstudiantes implements IEstudiantes {
+
+    private ArbolBinarioBusqueda<Estudiantes> arbol;
+
+    public FEstudiantes(ArbolBinarioBusqueda<Estudiantes> arbolCompartido) {
+        this.arbol = arbolCompartido;
+    }
+
     @Override
     public void registrarEstudiante(Estudiantes estudiante) {
+        if (estudiante == null) {
+            System.out.println("Estudiante no puede ser null.");
+            return;
+        }
+
+        if (arbol.buscarPorAtributo(e -> e.getMatricula(), estudiante.getMatricula()) != null) {
+            System.out.println("Ya existe un estudiante con esa matrícula.");
+            return;
+        }
+
         arbol.insertar(estudiante);
-        
-        Accion accion = new Accion(REGISTRO_ESTUDIANTE, estudiante, null, null, null, 0);
+        System.out.println("Estudiante registrado correctamente.");
+
+        Accion accion = new Accion(Accion.Tipo.REGISTRO_ESTUDIANTE, estudiante, null, null, null, 0);
         FDeshacer.registrarAccion(accion);
+    }
+
+    @Override
+    public Estudiantes buscarEstudiante(String matricula) {
+        if (matricula == null || matricula.isEmpty()) {
+            System.out.println("Matrícula no válida.");
+            return null;
+        }
+
+        Estudiantes encontrado = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
+
+        if (encontrado == null) {
+            System.out.println("Estudiante no encontrado.");
+        }
+
+        return encontrado;
     }
 
     @Override
     public void eliminarEstudiante(String matricula) {
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
+
+        if (estudiante == null) {
+            System.out.println("No se encontró un estudiante con esa matrícula.");
+            return;
+        }
+
         arbol.eliminar(estudiante);
-        
-        Accion accion = new Accion(ELIMINAR_ESTUDIANTE, estudiante, null, null, null, 0);
+        System.out.println("Estudiante eliminado del sistema.");
+
+        Accion accion = new Accion(Accion.Tipo.ELIMINAR_ESTUDIANTE, estudiante, null, null, null, 0);
         FDeshacer.registrarAccion(accion);
-    }
-    
-    @Override
-    public Estudiantes buscarEstudiante(String matricula){
-        return arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
     }
 }
