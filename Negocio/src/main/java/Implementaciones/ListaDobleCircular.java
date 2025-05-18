@@ -57,6 +57,14 @@ public class ListaDobleCircular<T> {
         
         
     }
+
+    /**
+     * regresa el primer nodo de la lista.
+     * @return 
+     */
+    public Nodo<T> getInicio() {
+        return inicio;
+    }
     
     /**
      * Agrega un nuevo nodo al final de la lista.
