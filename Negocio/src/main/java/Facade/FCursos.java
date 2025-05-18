@@ -7,6 +7,8 @@ package Facade;
 import Interfaz.ICursos;
 import Implementaciones.Diccionario;
 import ObjetosNegocio.Cursos;
+import ObjetosNegocio.Accion;
+import static ObjetosNegocio.Accion.Tipo.*;
 
 /**
  *
@@ -19,11 +21,16 @@ public class FCursos implements ICursos{
     @Override
     public void agregarCurso(String clave, Cursos curso) {
         cursos.put(clave, curso);
+        Accion accion = new Accion(AGREGAR_CURSO, null, curso, null, null, 0);
+        accion.getPila().add(accion);
     }
 
     @Override
     public void eliminarCurso(String clave) {
+        Cursos cursoEliminado = cursos.get(clave);
         cursos.remove(clave);
+        Accion accion = new Accion(ELIMINAR_CURSO, null, cursoEliminado, null, null, 0);
+        accion.getPila().add(accion);
     }
 
     @Override
