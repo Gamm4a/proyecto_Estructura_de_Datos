@@ -14,6 +14,10 @@ public class ListaEstudiantes<T> {
     private Nodo<T> p;
     private int tamaño;
 
+    /**
+     * clase generica de un nodo de lista enlazada simple.
+     * @param <T> 
+     */
     public static class Nodo<T> {
 
         private T dato;
@@ -43,7 +47,6 @@ public class ListaEstudiantes<T> {
     
     /**
      * crea el inicio de la lista
-     * @param dato valor del nodo
      */
     public ListaEstudiantes() {
         this.p = null;
