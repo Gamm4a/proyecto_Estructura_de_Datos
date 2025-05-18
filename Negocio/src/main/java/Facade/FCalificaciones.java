@@ -8,7 +8,8 @@ import Implementaciones.ArbolBinarioBusqueda;
 import Implementaciones.ArregloCalificaciones;
 import Interfaz.ICalificaciones;
 import ObjetosNegocio.Estudiantes;
-
+import ObjetosNegocio.Accion;
+import static ObjetosNegocio.Accion.Tipo.*;
 
 /**
  *
@@ -22,6 +23,9 @@ public class FCalificaciones implements ICalificaciones{
     public void agregarCalificacion(String matricula, double calificacion) {
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
         estudiante.getCalificaciones().agregarElemento(calificacion);
+        
+        Accion accion = new Accion(CALIFICACION_AGREGADA, estudiante, null, null, calificacion, 0);
+        accion.getPila().add(accion);
     }
 
     @Override
@@ -42,8 +46,12 @@ public class FCalificaciones implements ICalificaciones{
     public boolean modificarCalificacion(String matricula, double calificacion, double calNueva) {
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
         ArregloCalificaciones<Double> calificaciones = estudiante.getCalificaciones();
+        
+        Accion accion = new Accion(CALIFICACION_MODIFICADA, estudiante, null, calificacion, calNueva, 0);
+        accion.getPila().add(accion);
+        
         return calificaciones.modificarElemento(calificacion, calNueva);
-    }
+    } 
 
     @Override
     public void eliminarCalificacion(String matricula, int posicion) {
