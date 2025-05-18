@@ -13,7 +13,7 @@ import ObjetosNegocio.Estudiantes;
  * @author Luis Rafael
  */
 public class FEstudiantes implements IEstudiantes{
-    private ArbolBinarioBusqueda<Estudiantes> arbol = new ArbolBinarioBusqueda<>();
+    private ArbolBinarioBusqueda<Estudiantes> arbol;
     
     @Override
     public void registrarEstudiante(Estudiantes estudiante) {
