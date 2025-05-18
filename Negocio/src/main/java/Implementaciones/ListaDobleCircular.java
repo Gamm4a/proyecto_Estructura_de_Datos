@@ -99,7 +99,10 @@ public class ListaDobleCircular<T> {
         tamaño--;
     }
 
-    
+    /**
+     * Imprime todos los elementos de la lista en orden desde el inicio. Si la
+     * lista está vacía, se indica con un mensaje.
+     */
     public void imprimir() {
         if (inicio == null) {
             System.out.println("La lista está vacía.");
@@ -112,7 +115,11 @@ public class ListaDobleCircular<T> {
             actual = actual.sig;
         } while (actual != inicio);
     }
-    
+
+    /**
+     * Imprime todos los elementos de la lista en orden inverso desde el inicio.
+     * Si la lista está vacía, se indica con un mensaje.
+     */
     public void imprimirReversa() {
         if (inicio == null) {
             System.out.println("La lista está vacía.");
@@ -125,7 +132,13 @@ public class ListaDobleCircular<T> {
             actual = actual.ant;
         } while (actual != inicio);
     }
-    
+
+    /**
+     * Imprime una cantidad específica de elementos comenzando desde el inicio.
+     * Si la lista está vacía o la cantidad es inválida, se muestra un mensaje.
+     *
+     * @param cantidad Número de elementos a imprimir.
+     */
     public void imprimirCant(int cantidad) {
         if (inicio == null || cantidad <= 0) {
             System.out.println("Lista vacía o cantidad inválida.");
@@ -142,10 +155,20 @@ public class ListaDobleCircular<T> {
         } while (contador < cantidad && actual != inicio);
     }
 
+    /**
+     * Devuelve el tamaño actual de la lista.
+     *
+     * @return El número de elementos en la lista.
+     */
     public int getTamaño() {
         return tamaño;
     }
 
+    /**
+     * Indica si la lista está vacía.
+     *
+     * @return
+     */
     public boolean estaVacia() {
         return tamaño == 0;
     }
