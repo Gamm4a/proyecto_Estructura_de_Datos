@@ -16,60 +16,100 @@ import static ObjetosNegocio.Accion.Tipo.*;
  *
  * @author Luis Rafael
  */
-public class FInscripciones implements IInscripciones{
+public class FInscripciones implements IInscripciones {
 
     private Diccionario<String, Cursos> cursos;
     private ArbolBinarioBusqueda<Estudiantes> estudiantes;
 
+    public FInscripciones(Diccionario<String, Cursos> cursos, ArbolBinarioBusqueda<Estudiantes> estudiantes) {
+        this.cursos = cursos;
+        this.estudiantes = estudiantes;
+    }
+
     @Override
     public void inscribirEstudianteEnCurso(String matricula, String clave) {
-        Cursos cursoInscribir = cursos.get(clave);
+        Cursos curso = cursos.get(clave);
         Estudiantes estudiante = estudiantes.buscarPorAtributo(e -> e.getMatricula(), matricula);
-        if(cursoInscribir.getInscritos().getTamaño() >= Cursos.getMAX_INSCRITOS()){
-            cursoInscribir.getListaEspera().agregar(estudiante);
+
+        if (curso == null || estudiante == null) {
+            System.out.println("Curso o estudiante no encontrado.");
+            return;
         }
-        cursoInscribir.getInscritos().agregarUltimo(estudiante);
-        cursoInscribir.getRolEstudiantes().agregar(estudiante);
-        
-        Accion accion = new Accion(INSCRIPCION, estudiante, cursoInscribir, null, null, 0);
+
+        if (curso.getInscritos().getTamaño() >= Cursos.getMAX_INSCRITOS()) {
+            curso.getListaEspera().agregar(estudiante);
+            System.out.println("Curso lleno. Estudiante agregado a la lista de espera.");
+        } else {
+            curso.getInscritos().agregarUltimo(estudiante);
+            curso.getRolEstudiantes().agregar(estudiante);
+            System.out.println("Estudiante inscrito correctamente.");
+        }
+
+        Accion accion = new Accion(Accion.Tipo.INSCRIPCION, estudiante, curso, null, null, 0);
         FDeshacer.registrarAccion(accion);
     }
 
     @Override
     public void eliminarEstudianteDeCurso(String matricula, String clave) {
-        Cursos cursoEliminar = cursos.get(clave);
+        Cursos curso = cursos.get(clave);
         Estudiantes estudiante = estudiantes.buscarPorAtributo(e -> e.getMatricula(), matricula);
-        cursoEliminar.getInscritos().eliminar(estudiante);
-        if (!cursoEliminar.getListaEspera().estaVacia()) {
-            Estudiantes est = cursoEliminar.getListaEspera().getInicio().getDato();
-            cursoEliminar.getInscritos().agregarUltimo(est);
+
+        if (curso == null || estudiante == null) {
+            System.out.println("Curso o estudiante no encontrado.");
+            return;
         }
-        
-        Accion accion = new Accion(BAJA_ESTUDIANTE, estudiante, cursoEliminar, null, null, 0);
+
+        curso.getInscritos().eliminar(estudiante);
+
+        if (!curso.getListaEspera().estaVacia()) {
+            Estudiantes siguiente = curso.getListaEspera().getInicio().getDato();
+            curso.getInscritos().agregarUltimo(siguiente);
+            curso.getListaEspera().eliminarPrimero();
+        }
+
+        Accion accion = new Accion(Accion.Tipo.BAJA_ESTUDIANTE, estudiante, curso, null, null, 0);
         FDeshacer.registrarAccion(accion);
+
+        System.out.println("Estudiante eliminado del curso.");
     }
 
     @Override
     public void mostrarInscritos(String clave) {
-        Cursos cursoMostrar = cursos.get(clave);
-        cursoMostrar.getInscritos().imprimir();
+        Cursos curso = cursos.get(clave);
+        if (curso != null) {
+            curso.getInscritos().imprimir();
+        } else {
+            System.out.println("Curso no encontrado.");
+        }
     }
-    
+
     @Override
     public void mostrarListaEspera(String clave, int cantidad) {
-        Cursos cursoMostrarEspera = cursos.get(clave);
-        cursoMostrarEspera.getListaEspera().imprimirCant(cantidad);
+        Cursos curso = cursos.get(clave);
+        if (curso != null) {
+            curso.getListaEspera().imprimirCant(cantidad);
+        } else {
+            System.out.println("Curso no encontrado.");
+        }
     }
 
     @Override
     public void recorrerListaEsperaAdelante(String clave) {
-        Cursos cursoMostrarEspera = cursos.get(clave);
-        cursoMostrarEspera.getListaEspera().imprimir();
+        Cursos curso = cursos.get(clave);
+        if (curso != null) {
+            curso.getListaEspera().imprimir();
+        } else {
+            System.out.println("Curso no encontrado.");
+        }
     }
 
     @Override
     public void recorrerListaEsperaAtras(String clave) {
-        Cursos cursoMostrarEspera = cursos.get(clave);
-        cursoMostrarEspera.getListaEspera().imprimirReversa();
+        Cursos curso = cursos.get(clave);
+        if (curso != null) {
+            curso.getListaEspera().imprimirReversa();
+        } else {
+            System.out.println("Curso no encontrado.");
+        }
     }
 }
