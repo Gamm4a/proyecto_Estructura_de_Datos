@@ -19,7 +19,11 @@ import Implementaciones.Cola;
 public class FCalificaciones implements ICalificaciones{
 
     private ArbolBinarioBusqueda<Estudiantes> arbol;
-    private Cola<Accion> cola = new Cola();
+    private Cola<Accion> colaSolicitudes = new Cola<>();
+
+    public FCalificaciones(ArbolBinarioBusqueda<Estudiantes> arbolCompartido) {
+        this.arbol = arbolCompartido;
+    }
 
     @Override
     public void agregarCalificacion(Accion accion) {
