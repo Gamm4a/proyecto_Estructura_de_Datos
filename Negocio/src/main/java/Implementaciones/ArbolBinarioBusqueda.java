@@ -179,4 +179,33 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> {
             return buscarPorAtributo(nodo.der, extractor, valorBuscado);
         }
     }
+
+    /**
+     * regresa un string con los valores del arbol organizados en orden
+     * @return 
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        recorridoInOrden(raiz, sb);
+        if (sb.length() > 1) {
+            sb.setLength(sb.length() - 2);
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    /**
+     * recorre el arbol en orden
+     * @param nodo
+     * @param sb 
+     */
+    private void recorridoInOrden(Nodo<T> nodo, StringBuilder sb) {
+        if (nodo != null) {
+            recorridoInOrden(nodo.izq, sb);
+            sb.append(nodo.dato).append(", ");
+            recorridoInOrden(nodo.der, sb);
+        }
+    }
 }
