@@ -4,6 +4,7 @@
  */
 package Form;
 
+import Facade.Inicializador;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 /**
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
  */
 public class frmProyecto extends javax.swing.JFrame {
     private JPanel contenedor;
+    private Inicializador inicio;
     public static final String MENU_PRINCIPAL = "menuPrincipal";
     public static final String MENU_ALUMNO = "menuAlumno";
     public static final String MENU_CURSOS = "menuCursos";
@@ -26,14 +28,16 @@ public class frmProyecto extends javax.swing.JFrame {
         setLayout(null);
         setResizable(false);
         
+        inicio = new Inicializador();
+        
         contenedor = new JPanel(new CardLayout());
         
-        menuPrincipal mPrincipal = new menuPrincipal(this);
-        menuEstudiantes mAlumnos = new menuEstudiantes(this);
-        menuCursos mCursos = new menuCursos(this);
-        menuReportes mReportes = new menuReportes(this);
-        menuCalificaciones mCalificaciones = new menuCalificaciones(this);
-        menuInscripciones mInscripciones = new menuInscripciones(this);
+        menuPrincipal mPrincipal = new menuPrincipal(this, inicio);
+        menuEstudiantes mAlumnos = new menuEstudiantes(this, inicio);
+        menuCursos mCursos = new menuCursos(this, inicio);
+        menuReportes mReportes = new menuReportes(this, inicio);
+        menuCalificaciones mCalificaciones = new menuCalificaciones(this, inicio);
+        menuInscripciones mInscripciones = new menuInscripciones(this, inicio);
         
         contenedor.add(mPrincipal, MENU_PRINCIPAL);
         contenedor.add(mAlumnos, MENU_ALUMNO);
@@ -101,10 +105,8 @@ public class frmProyecto extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmProyecto().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new frmProyecto().setVisible(true);
         });
     }
     

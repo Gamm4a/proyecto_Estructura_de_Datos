@@ -16,11 +16,13 @@ public class menuPrincipal extends javax.swing.JPanel {
     private Inicializador inicio;
     /**
      * Creates new form menuPrincipal
+     * @param frame
+     * @param inicio
      */
-    public menuPrincipal(frmProyecto frame) {
+    public menuPrincipal(frmProyecto frame, Inicializador inicio) {
         this.frame = frame;
+        this.inicio = inicio;
         initComponents();
-        inicio = new Inicializador();
     }
 
     /**
@@ -181,6 +183,7 @@ public class menuPrincipal extends javax.swing.JPanel {
     private void deshacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deshacerActionPerformed
         // TODO add your handling code here:
         inicio.getfDeshacer().deshacerUltimaAccion();
+        JOptionPane.showMessageDialog(frame, "se deshizo la ultima accion");
     }//GEN-LAST:event_deshacerActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed

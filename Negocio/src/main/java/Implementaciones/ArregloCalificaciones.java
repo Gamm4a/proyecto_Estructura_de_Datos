@@ -100,4 +100,9 @@ public class ArregloCalificaciones<T> {
             System.out.println(arreglo[i]);
         }
     }
+
+    @Override
+    public String toString() {
+        return "ArregloCalificaciones{" + "tam=" + tam + ", arreglo=" + arreglo + '}';
+    }
 }

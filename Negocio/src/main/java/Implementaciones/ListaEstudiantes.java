@@ -63,16 +63,21 @@ public class ListaEstudiantes<T> {
      */
     public void agregarUltimo(T dato) {
         Nodo<T> nuevo = new Nodo<>(dato);
-        Nodo<T> actual = p;
-        while (actual.sig != null) {
-            actual = actual.sig;
+        if (p == null) {
+            p = nuevo;
+        } else {
+            Nodo<T> actual = p;
+            while (actual.sig != null) {
+                actual = actual.sig;
+            }
+            actual.sig = nuevo;
         }
-        actual.sig = nuevo;
         tamaño++;
     }
 
     /**
     * eliminar un nodo de la lista 
+     * @param dato
     */
     public void eliminar(T dato) {
         if (p == null) {
@@ -99,14 +104,17 @@ public class ListaEstudiantes<T> {
     
     /**
      * imprime los nodos de la lista
+     * @return 
      */
-    public void imprimir() {
+    public String imprimir() {
+        StringBuilder sb = new StringBuilder();
         Nodo<T> actual = p;
         while (actual != null) {
-            System.out.print(actual.getDato() + " -> ");
+            sb.append(actual.getDato()).append(" -> ");
             actual = actual.sig;
         }
-        System.out.println("null");
+        sb.append("null");
+        return sb.toString();
     }
     
     /**

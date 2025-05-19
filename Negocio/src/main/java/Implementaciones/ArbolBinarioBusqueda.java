@@ -4,7 +4,6 @@
  */
 package Implementaciones;
 
-import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 /**
@@ -146,7 +145,9 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> {
     }
     
     /**
-     * Busca un elemento dentro del árbol.Si el elemento no existe, lanza una excepción.
+     * Busca un elemento dentro del árbol.Si el elemento no existe, lanza una
+     * excepción.
+     *
      * @param extractor
      * @param valorBuscado
      * @return El elemento encontrado.
@@ -154,16 +155,17 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> {
     public T buscarPorAtributo(Function<T, Comparable> extractor, Comparable valorBuscado) {
         return buscarPorAtributo(raiz, extractor, valorBuscado);
     }
-    
+
     /**
      * Búsqueda recursiva del dato en el subárbol.
+     *
      * @param nodo nodo actual en la búsqued
      * @param dato valor a buscar.
      * @return Dato encontrado si existe.
      */
     private T buscarPorAtributo(Nodo<T> nodo, Function<T, Comparable> extractor, Comparable valorBuscado) {
         if (nodo == null) {
-            throw new NoSuchElementException("Atributo no encontrado en el árbol.");
+            return null;
         }
 
         Comparable valorNodo = extractor.apply(nodo.dato);
@@ -176,5 +178,5 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> {
         } else {
             return buscarPorAtributo(nodo.der, extractor, valorBuscado);
         }
-    }   
+    }
 }

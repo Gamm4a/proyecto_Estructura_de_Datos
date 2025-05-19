@@ -113,37 +113,45 @@ public class ListaDobleCircular<T> {
     }
 
     /**
-     * Imprime todos los elementos de la lista en orden desde el inicio. Si la
+     * Imprime todos los elementos de la lista en orden desde el inicio.Si la
      * lista está vacía, se indica con un mensaje.
+     * @return 
      */
-    public void imprimir() {
+    public String imprimir() {
         if (inicio == null) {
-            System.out.println("La lista está vacía.");
-            return;
+            return "La lista está vacía.";
         }
 
+        StringBuilder sb = new StringBuilder();
         Nodo<T> actual = inicio;
         do {
-            System.out.println(actual.dato);
-            actual = actual.sig;
+            sb.append(actual.getDato()).append(" -> ");
+            actual = actual.getSig();
         } while (actual != inicio);
+        sb.append("(inicio)");
+
+        return sb.toString();
     }
 
     /**
      * Imprime todos los elementos de la lista en orden inverso desde el inicio.
      * Si la lista está vacía, se indica con un mensaje.
+     * @return
      */
-    public void imprimirReversa() {
+    public String imprimirReversa() {
         if (inicio == null) {
-            System.out.println("La lista está vacía.");
-            return;
+            return "La lista está vacía.";
         }
 
-        Nodo<T> actual = inicio;
+        StringBuilder sb = new StringBuilder();
+        Nodo<T> actual = fin;
         do {
-            System.out.println(actual.dato);
-            actual = actual.ant;
-        } while (actual != inicio);
+            sb.append(actual.getDato()).append(" -> ");
+            actual = actual.getAnt();
+        } while (actual != fin);
+        sb.append("(fin)");
+
+        return sb.toString();
     }
 
     /**
@@ -151,21 +159,26 @@ public class ListaDobleCircular<T> {
      * Si la lista está vacía o la cantidad es inválida, se muestra un mensaje.
      *
      * @param cantidad Número de elementos a imprimir.
+     * @return 
      */
-    public void imprimirCant(int cantidad) {
+    public String imprimirCant(int cantidad) {
         if (inicio == null || cantidad <= 0) {
-            System.out.println("Lista vacía o cantidad inválida.");
-            return;
+            return "Lista vacía o cantidad inválida.";
         }
 
+        StringBuilder sb = new StringBuilder();
         Nodo<T> actual = inicio;
         int contador = 0;
 
         do {
-            System.out.println(actual.dato);
-            actual = actual.sig;
+            sb.append(actual.getDato()).append(" -> ");
+            actual = actual.getSig();
             contador++;
         } while (contador < cantidad && actual != inicio);
+
+        sb.append("...");
+
+        return sb.toString();
     }
 
     /**

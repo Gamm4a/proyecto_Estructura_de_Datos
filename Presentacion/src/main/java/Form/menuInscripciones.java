@@ -5,6 +5,7 @@
 package Form;
 
 import Facade.Inicializador;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,11 +17,13 @@ public class menuInscripciones extends javax.swing.JPanel {
     
     /**
      * Creates new form menuInscripciones
+     * @param frame
+     * @param inicio
      */
-    public menuInscripciones(frmProyecto frame) {
+    public menuInscripciones(frmProyecto frame, Inicializador inicio) {
         this.frame = frame;
+        this.inicio = inicio;
         initComponents();
-        inicio = new Inicializador();
     }
 
     /**
@@ -38,13 +41,17 @@ public class menuInscripciones extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         txtMatricula = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtClave = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
         regresar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        b1 = new javax.swing.JButton();
-        b2 = new javax.swing.JButton();
-        b3 = new javax.swing.JButton();
+        btnInscribir = new javax.swing.JButton();
+        esperaN = new javax.swing.JButton();
+        inscritos = new javax.swing.JButton();
+        espera = new javax.swing.JButton();
+        esperaReversa = new javax.swing.JButton();
+        txtClave = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -56,7 +63,7 @@ public class menuInscripciones extends javax.swing.JPanel {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(564, Short.MAX_VALUE)
+                .addContainerGap(562, Short.MAX_VALUE)
                 .addComponent(Logo2)
                 .addGap(236, 236, 236))
         );
@@ -75,7 +82,13 @@ public class menuInscripciones extends javax.swing.JPanel {
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel5.setText("clave del curso seleccionado");
+        jLabel5.setText("Clave del curso seleccionado");
+
+        txtCantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadActionPerformed(evt);
+            }
+        });
 
         regresar.setBackground(new java.awt.Color(255, 102, 0));
         regresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -91,58 +104,83 @@ public class menuInscripciones extends javax.swing.JPanel {
         jTextArea1.setEnabled(false);
         jScrollPane1.setViewportView(jTextArea1);
 
-        b1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        b1.setText("inscribir");
-        b1.addActionListener(new java.awt.event.ActionListener() {
+        btnInscribir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnInscribir.setText("inscribir");
+        btnInscribir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b1ActionPerformed(evt);
+                btnInscribirActionPerformed(evt);
             }
         });
 
-        b2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        b2.setText("espera");
-        b2.addActionListener(new java.awt.event.ActionListener() {
+        esperaN.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        esperaN.setText("espera N");
+        esperaN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b2ActionPerformed(evt);
+                esperaNActionPerformed(evt);
             }
         });
 
-        b3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        b3.setText("inscritos");
-        b3.addActionListener(new java.awt.event.ActionListener() {
+        inscritos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        inscritos.setText("inscritos");
+        inscritos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                b3ActionPerformed(evt);
+                inscritosActionPerformed(evt);
             }
         });
+
+        espera.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        espera.setText("espera");
+        espera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                esperaActionPerformed(evt);
+            }
+        });
+
+        esperaReversa.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        esperaReversa.setText("espera reversa");
+        esperaReversa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                esperaReversaActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Cantidad de lista de espera");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnInscribir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(inscritos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(espera, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(esperaReversa, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(esperaN, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(342, 342, 342))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(b2, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                            .addComponent(b1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(b3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(19, 19, 19))
+                        .addGap(67, 67, 67)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(33, 33, 33)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(95, 95, 95))))
+                        .addGap(290, 290, 290)
+                        .addComponent(regresar, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,36 +195,45 @@ public class menuInscripciones extends javax.swing.JPanel {
                     .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(b1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(regresar)
+                        .addGap(28, 28, 28))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnInscribir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(b2)
+                        .addComponent(inscritos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(b3)
-                        .addGap(0, 129, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(regresar)
-                .addGap(22, 22, 22))
+                        .addComponent(espera)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(esperaReversa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(esperaN)
+                        .addGap(7, 7, 7)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 798, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(183, 183, 183)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -195,47 +242,67 @@ public class menuInscripciones extends javax.swing.JPanel {
         frame.cambiarPanel(frmProyecto.MENU_PRINCIPAL);
     }//GEN-LAST:event_regresarActionPerformed
 
-    private void b1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b1ActionPerformed
+    private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
         // TODO add your handling code here:
         try{
-            inicio.getFInscripciones().inscribirEstudianteEnCurso(txtMatricula.getText(), txtClave.getText());
+            inicio.getFInscripciones().inscribirEstudianteEnCurso(txtMatricula.getText(), txtCantidad.getText());
+            JOptionPane.showMessageDialog(frame, "Se registro el estudiante en el curso");
         }catch(Exception e){
             throw e;
         }
-    }//GEN-LAST:event_b1ActionPerformed
+    }//GEN-LAST:event_btnInscribirActionPerformed
 
-    private void b2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b2ActionPerformed
+    private void esperaNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_esperaNActionPerformed
         // TODO add your handling code here:
         try{
-            inicio.getFInscripciones().mostrarListaEspera(txtClave.getText(), 10);
+            String lista = inicio.getFInscripciones().mostrarListaEspera(txtClave.getText(), Integer.parseInt(txtCantidad.getText()));
+            jTextArea1.setText(lista);
         }catch(Exception e){
             throw e;
         }
         
-    }//GEN-LAST:event_b2ActionPerformed
+    }//GEN-LAST:event_esperaNActionPerformed
 
-    private void b3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b3ActionPerformed
-        // TODO add your handling code here:
+    private void inscritosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inscritosActionPerformed
         try{
-            inicio.getFInscripciones().mostrarInscritos(txtClave.getText());
+            String ins = inicio.getFInscripciones().mostrarInscritos(txtCantidad.getText());
+            jTextArea1.setText(ins);
         }catch(Exception e){
             throw e;
         }
-    }//GEN-LAST:event_b3ActionPerformed
+    }//GEN-LAST:event_inscritosActionPerformed
+
+    private void esperaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_esperaActionPerformed
+        String esp = inicio.getFInscripciones().recorrerListaEsperaAdelante(txtClave.getText());
+        jTextArea1.setText(esp);
+    }//GEN-LAST:event_esperaActionPerformed
+
+    private void esperaReversaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_esperaReversaActionPerformed
+        String espR = inicio.getFInscripciones().recorrerListaEsperaAtras(txtClave.getText());
+        jTextArea1.setText(espR);
+    }//GEN-LAST:event_esperaReversaActionPerformed
+
+    private void txtCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCantidadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Logo2;
-    private javax.swing.JButton b1;
-    private javax.swing.JButton b2;
-    private javax.swing.JButton b3;
+    private javax.swing.JButton btnInscribir;
+    private javax.swing.JButton espera;
+    private javax.swing.JButton esperaN;
+    private javax.swing.JButton esperaReversa;
+    private javax.swing.JButton inscritos;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton regresar;
+    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtMatricula;
     // End of variables declaration//GEN-END:variables

@@ -17,11 +17,13 @@ public class menuCalificaciones extends javax.swing.JPanel {
     
     /**
      * Creates new form menuCalificaciones
+     * @param frame
+     * @param inicio
      */
-    public menuCalificaciones(frmProyecto frame) {
+    public menuCalificaciones(frmProyecto frame, Inicializador inicio) {
         this.frame = frame;
+        this.inicio = inicio;
         initComponents();
-        inicio = new Inicializador();
     }
 
     /**
@@ -44,7 +46,8 @@ public class menuCalificaciones extends javax.swing.JPanel {
         agregarCalif = new javax.swing.JButton();
         modificarCalif = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        txtCalifr = new javax.swing.JTextField();
+        txtCalifVieja = new javax.swing.JTextField();
+        procesar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -109,6 +112,15 @@ public class menuCalificaciones extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("calificacion a reemplazar");
 
+        procesar.setBackground(new java.awt.Color(204, 255, 255));
+        procesar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        procesar.setText("procesar solicitud");
+        procesar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                procesarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -125,12 +137,13 @@ public class menuCalificaciones extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtCalif)
                             .addComponent(txtMatricula)
-                            .addComponent(txtCalifr, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
+                            .addComponent(txtCalifVieja, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(agregarCalif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(modificarCalif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(modificarCalif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(procesar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(72, 72, 72))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -147,12 +160,14 @@ public class menuCalificaciones extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCalifr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCalifVieja, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(agregarCalif)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(modificarCalif)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(procesar)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -164,19 +179,19 @@ public class menuCalificaciones extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(349, 349, 349)
-                .addComponent(regresar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(206, Short.MAX_VALUE)
+                .addContainerGap(309, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(302, 302, 302))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(302, 302, 302))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(210, 210, 210))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(341, 341, 341)
+                        .addComponent(regresar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,11 +199,11 @@ public class menuCalificaciones extends javax.swing.JPanel {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(regresar)
-                .addGap(46, 46, 46))
+                .addGap(28, 28, 28))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -202,7 +217,7 @@ public class menuCalificaciones extends javax.swing.JPanel {
         try{
             double dcalif = Double.parseDouble(txtCalif.getText());
             inicio.getFCalificaciones().enviarSolicitudAgregarCalificaion(txtMatricula.getText(), dcalif);
-            JOptionPane.showMessageDialog(frame, "se proceso la solicitud");
+            JOptionPane.showMessageDialog(frame, "se envio la solicitud de agregar calificaion");
         } catch(Exception e){
             JOptionPane.showMessageDialog(frame, "Error: no se proceso la solicitud: " + e);
         }
@@ -212,13 +227,18 @@ public class menuCalificaciones extends javax.swing.JPanel {
         // TODO add your handling code here:
         try{
             double dcalif = Double.parseDouble(txtCalif.getText());
-            double rcalif = Double.parseDouble(txtCalifr.getText());
+            double rcalif = Double.parseDouble(txtCalifVieja.getText());
             inicio.getFCalificaciones().enviarSolicitudModificarCalificaion(txtMatricula.getText(),rcalif, dcalif);
-            JOptionPane.showMessageDialog(frame, "se proceso la solicitud");
+            JOptionPane.showMessageDialog(frame, "se envio la solicitud de modificar calificacion");
         } catch(Exception e){
             JOptionPane.showMessageDialog(frame, "Error: no se proceso la solicitud: " + e);
         }
     }//GEN-LAST:event_modificarCalifActionPerformed
+
+    private void procesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_procesarActionPerformed
+        inicio.getFCalificaciones().procesarSolicitud();
+        JOptionPane.showMessageDialog(frame, "se proceso una solicitud");
+    }//GEN-LAST:event_procesarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -231,9 +251,10 @@ public class menuCalificaciones extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JButton modificarCalif;
+    private javax.swing.JButton procesar;
     private javax.swing.JButton regresar;
     private javax.swing.JTextField txtCalif;
-    private javax.swing.JTextField txtCalifr;
+    private javax.swing.JTextField txtCalifVieja;
     private javax.swing.JTextField txtMatricula;
     // End of variables declaration//GEN-END:variables
 }

@@ -57,4 +57,9 @@ public class Pila<T> extends ListaEnlazada<T>{
     public boolean vacia() {
         return tope == null;
     }
+
+    @Override
+    public String toString() {
+        return "Pila{" + "tope=" + tope + '}';
+    }
 }

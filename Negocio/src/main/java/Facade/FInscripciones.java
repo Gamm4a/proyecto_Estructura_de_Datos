@@ -11,7 +11,6 @@ import Implementaciones.ArbolBinarioBusqueda;
 import Implementaciones.Diccionario;
 import ObjetosNegocio.Accion;
 
-import static ObjetosNegocio.Accion.Tipo.*;
 
 /**
  * clase fachada de IInscripciones
@@ -20,8 +19,8 @@ import static ObjetosNegocio.Accion.Tipo.*;
  */
 public class FInscripciones implements IInscripciones {
 
-    private Diccionario<String, Cursos> cursos;
-    private ArbolBinarioBusqueda<Estudiantes> estudiantes;
+    private final Diccionario<String, Cursos> cursos;
+    private final ArbolBinarioBusqueda<Estudiantes> estudiantes;
     
     /**
      * constructor que crea la fachada de la inscripcion
@@ -74,6 +73,7 @@ public class FInscripciones implements IInscripciones {
         Cursos curso = cursos.get(clave);
         Estudiantes estudiante = estudiantes.buscarPorAtributo(e -> e.getMatricula(), matricula);
 
+
         if (curso == null || estudiante == null) {
             System.out.println("Curso o estudiante no encontrado.");
             return;
@@ -98,14 +98,16 @@ public class FInscripciones implements IInscripciones {
      * metodo para mostrar alumnos incritos
      * 
      * @param clave 
+     * @return  
      */
     @Override
-    public void mostrarInscritos(String clave) {
+    public String mostrarInscritos(String clave) {
         Cursos curso = cursos.get(clave);
         if (curso != null) {
-            curso.getInscritos().imprimir();
+            return curso.getInscritos().imprimir();
         } else {
             System.out.println("Curso no encontrado.");
+            return null;
         }
     }
     
@@ -114,14 +116,16 @@ public class FInscripciones implements IInscripciones {
      * 
      * @param clave clave del curso
      * @param cantidad cantidad a imprimir
+     * @return 
      */
     @Override
-    public void mostrarListaEspera(String clave, int cantidad) {
+    public String mostrarListaEspera(String clave, int cantidad) {
         Cursos curso = cursos.get(clave);
         if (curso != null) {
-            curso.getListaEspera().imprimirCant(cantidad);
+            return curso.getListaEspera().imprimirCant(cantidad);
         } else {
             System.out.println("Curso no encontrado.");
+            return null;
         }
     }
     
@@ -129,29 +133,33 @@ public class FInscripciones implements IInscripciones {
      * metodo para recorre la lista de espera hacia delante
      * 
      * @param clave clave del curso
+     * @return 
      */
     @Override
-    public void recorrerListaEsperaAdelante(String clave) {
+    public String recorrerListaEsperaAdelante(String clave) {
         Cursos curso = cursos.get(clave);
         if (curso != null) {
-            curso.getListaEspera().imprimir();
+            return curso.getListaEspera().imprimir();
         } else {
             System.out.println("Curso no encontrado.");
+            return null;
         }
     }
     
     /**
      * metodo para recorre la lista de espera hacia delante
-     * 
-     * @param clave clave del curso
+     *
+     * @param clave
+     * @return   * @param clave clave del curso
      */
     @Override
-    public void recorrerListaEsperaAtras(String clave) {
+    public String recorrerListaEsperaAtras(String clave) {
         Cursos curso = cursos.get(clave);
         if (curso != null) {
-            curso.getListaEspera().imprimirReversa();
+            return curso.getListaEspera().imprimirReversa();
         } else {
             System.out.println("Curso no encontrado.");
+            return null;
         }
     }
 }

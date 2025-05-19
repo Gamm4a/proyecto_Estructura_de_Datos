@@ -45,4 +45,9 @@ public class Calificaciones implements Comparable<Calificaciones>{
         }
         return comp;
     }
+
+    @Override
+    public String toString() {
+        return "Calificaciones{" + "promedio=" + promedio + ", estudiante=" + estudiante.toString() + '}';
+    } 
 }

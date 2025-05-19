@@ -22,11 +22,13 @@ public class menuEstudiantes extends javax.swing.JPanel {
     private Estudiantes estudiante;
     /**
      * Creates new form menuPrincipal
+     * @param frame
+     * @param inicio
      */
-    public menuEstudiantes(frmProyecto frame) {
+    public menuEstudiantes(frmProyecto frame, Inicializador inicio) {
         this.frame = frame;
+        this.inicio = inicio;
         initComponents();
-        inicio = new Inicializador();
         
     }
     @SuppressWarnings("unchecked")
@@ -342,6 +344,7 @@ public class menuEstudiantes extends javax.swing.JPanel {
             estudiante = new Estudiantes(txtMatricula.getText(), txtNombre.getText(), txtTelefono.getText(),txtCorreo.getText(),direccion);
             inicio.getFEstudiantes().registrarEstudiante(estudiante);
             JOptionPane.showMessageDialog(frame, "se registro un nuevo estudiante");
+            limpiarCampos();
         } catch(HeadlessException e){
             JOptionPane.showMessageDialog(frame, "Error: no se pudo registrar el estudiante: " + e);
         }
@@ -356,13 +359,25 @@ public class menuEstudiantes extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarActionPerformed
 
+    private void limpiarCampos() {
+        txtMatricula.setText("");
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        txtTelefono.setText("");
+        txtCalle.setText("");
+        txtColonia.setText("");
+        txtNumero.setText("");
+        txtCiudad.setText("");
+    }
+    
     private void buscarAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarAlumnoActionPerformed
-        // TODO add your handling code here:
-        try{
-            inicio.getFEstudiantes().buscarEstudiante(txtBuscar.getText());
-            JOptionPane.showMessageDialog(frame, "se encotro el estudiante");
-        } catch(HeadlessException e){
-            JOptionPane.showMessageDialog(frame, "Error: matricula erronea o usuario no encontrado" + e);
+        String matricula = txtBuscar.getText();
+        Estudiantes est = inicio.getFEstudiantes().buscarEstudiante(matricula);
+
+        if (est != null) {
+            jTextArea1.setText(est.toString());
+        } else {
+            jTextArea1.setText("Alumno no encontrado.");
         }
     }//GEN-LAST:event_buscarAlumnoActionPerformed
 

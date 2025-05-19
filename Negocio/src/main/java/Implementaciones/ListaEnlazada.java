@@ -229,4 +229,20 @@ public class ListaEnlazada<T> {
         }
         System.out.println("null");
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        NodoSimple<T> actual = p;
+        while (actual != null) {
+            sb.append(actual.dato);
+            if (actual.sig != null) {
+                sb.append(", ");
+            }
+            actual = actual.sig;
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 }

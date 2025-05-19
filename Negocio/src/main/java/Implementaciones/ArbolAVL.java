@@ -16,6 +16,7 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
      * Elimina un nodo con el valor especificado del árbol. Luego de la eliminación, se actualizan las alturas y se balancea el árbol si es necesario.
      * @param dato el valor a eliminar.
      */
+    @Override
     public void eliminar(T dato) {
         raiz = eliminar(raiz, dato);
     }
@@ -154,19 +155,26 @@ public class ArbolAVL<T extends Comparable<T>> extends ArbolBinarioBusqueda<T> {
 
     /**
     *Metodo que recorre el arbol 
+     * @return 
     */
-    public void inOrder() {
-        inOrder(raiz);
+    public String inOrder() {
+        return inOrder(raiz).trim();
     }
 
     /**
     *Metodo recursivo que recorre el arbol de forma IMD
     */
-    private void inOrder(Nodo<T> nodo) {
-        if (nodo != null) {
-            inOrder(nodo.izq);
-            System.out.print(nodo.dato + " ");
-            inOrder(nodo.der);
+    private String inOrder(Nodo<T> nodo) {
+        if (nodo == null) {
+            return "";
         }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(inOrder(nodo.izq));
+        sb.append(nodo.dato).append(", ");
+        sb.append(inOrder(nodo.der));
+
+        return sb.toString();
     }
+    
 }

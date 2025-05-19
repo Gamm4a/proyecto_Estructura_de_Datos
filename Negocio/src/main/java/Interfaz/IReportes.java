@@ -4,13 +4,15 @@
  */
 package Interfaz;
 
+import ObjetosNegocio.Estudiantes;
+
 /**
  *
  * @author Luis Rafael
  */
 public interface IReportes {
     
-    void listarPorPromedio();
+    String listarPorPromedio();
     
-    void rotarRol(String clave);
+    Estudiantes rotarRol(String clave);
 }

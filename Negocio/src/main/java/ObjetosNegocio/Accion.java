@@ -91,4 +91,9 @@ public class Accion {
     public int getPosicionCalificacion() {
         return posicionCalificacion;
     }
+
+    @Override
+    public String toString() {
+        return "Accion{" + "tipo=" + tipo + ", estudianteInvolucrado=" + estudianteInvolucrado + ", cursoInvolucrado=" + cursoInvolucrado + ", calificacionAnterior=" + calificacionAnterior + ", calificacionNueva=" + calificacionNueva + ", posicionCalificacion=" + posicionCalificacion + '}';
+    }
 }

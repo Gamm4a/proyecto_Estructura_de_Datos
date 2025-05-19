@@ -88,4 +88,9 @@ public class Cursos {
     public static int getMAX_INSCRITOS() {
         return MAX_INSCRITOS;
     }
+
+    @Override
+    public String toString() {
+        return "Cursos{" + "nombre=" + nombre + ", clave=" + clave + '}';
+    }
 }

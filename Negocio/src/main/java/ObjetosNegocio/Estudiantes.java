@@ -5,7 +5,6 @@
 package ObjetosNegocio;
 
 import Implementaciones.ArregloCalificaciones;
-import ObjetosNegocio.Direccion;
 /**
  * clase que representa a los estudiantes
  * @author Luis Rafael
@@ -90,5 +89,10 @@ public class Estudiantes implements Comparable<Estudiantes> {
 
     public void setCalificaciones(ArregloCalificaciones<Double> calificaciones) {
         this.calificaciones = calificaciones;
+    }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" + "nombre=" + nombre + ", matricula=" + matricula + ", telefono=" + telefono + ", correo=" + correo + ", direccion=" + direccion + '}';
     }
 }

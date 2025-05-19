@@ -57,9 +57,10 @@ public class FCursos implements ICursos{
     
     /**
      * metodo que muestra todos los cursos 
+     * @return 
      */
     @Override
-    public void mostrarCursos() {
-        FDeshacer.registrarAccion(accion);
+    public String mostrarCursos() {
+        return cursos.imprimir();
     }
 }

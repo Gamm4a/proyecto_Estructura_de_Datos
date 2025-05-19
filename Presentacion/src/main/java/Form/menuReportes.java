@@ -5,6 +5,8 @@
 package Form;
 
 import Facade.Inicializador;
+import ObjetosNegocio.Estudiantes;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,11 +17,13 @@ public class menuReportes extends javax.swing.JPanel {
     private Inicializador inicio;
     /**
      * Creates new form menuRefortes
+     * @param frame
+     * @param inicio
      */
-    public menuReportes(frmProyecto frame) {
+    public menuReportes(frmProyecto frame, Inicializador inicio) {
         this.frame = frame;
+        this.inicio = inicio;
         initComponents();
-        inicio = new Inicializador();
     }
 
     /**
@@ -126,8 +130,8 @@ public class menuReportes extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(342, 342, 342)
                         .addComponent(jLabel1)
-                        .addGap(27, 27, 27)
-                        .addComponent(txtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtc, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(152, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -135,8 +139,10 @@ public class menuReportes extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(1, 1, 1))
                     .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
@@ -151,13 +157,17 @@ public class menuReportes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void generarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarReporteActionPerformed
-        // TODO add your handling code here:
-        inicio.getFReportes().listarPorPromedio();
+        String reporte = inicio.getFReportes().listarPorPromedio();
+        jTextArea2.setText(reporte);
     }//GEN-LAST:event_generarReporteActionPerformed
 
     private void rotarRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rotarRolActionPerformed
         // TODO add your handling code here:
-        inicio.getFReportes().rotarRol(txtc.getText());
+        Estudiantes estudiante = inicio.getFReportes().rotarRol(txtc.getText());
+        if (estudiante != null) {
+           JOptionPane.showMessageDialog(frame, "se rotó el rol, nuevo lider: " + estudiante.toString()); 
+        }
+        JOptionPane.showMessageDialog(frame, "no hay integrantes en el curso");
     }//GEN-LAST:event_rotarRolActionPerformed
 
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed

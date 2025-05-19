@@ -44,19 +44,20 @@ public class FReportes implements IReportes {
      * metodo para rotar el rol
      * 
      * @param claveCurso clave del curso 
+     * @return  
      */
     @Override
-    public void rotarRol(String claveCurso) {
+    public Estudiantes rotarRol(String claveCurso) {
         Cursos curso = cursos.get(claveCurso);
 
         if (curso == null) {
             System.out.println("Curso no encontrado.");
-            return;
+            return null;
         }
 
         if (curso.getRolEstudiantes() == null || curso.getRolEstudiantes().vacia()) {
             System.out.println("No hay estudiantes para rotar el rol.");
-            return;
+            return null;
         }
 
         if (curso.getLider() == null) {
@@ -65,21 +66,21 @@ public class FReportes implements IReportes {
             curso.setLider(curso.getLider().getSig());
         }
 
-        Estudiantes nuevoLider = curso.getLider().getDato();
-        System.out.println("Nuevo líder: " + nuevoLider.getNombre());
+        return curso.getLider().getDato();
     }
     
     /**
      * metodo para listar por promedio
+     * @return 
      */
     @Override
-    public void listarPorPromedio() {
+    public String listarPorPromedio() {
         ArbolAVL<Calificaciones> arbolPromedios = new ArbolAVL<>();
 
         recorrerEInsertar(arbolEstudiantes.raiz, arbolPromedios);
 
         System.out.println("Estudiantes ordenados por promedio:");
-        arbolPromedios.inOrder();
+        return arbolPromedios.inOrder();
     }
     
     /**

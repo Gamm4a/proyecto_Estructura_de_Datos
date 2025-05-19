@@ -14,5 +14,5 @@ public interface ICursos {
     
     void eliminarCurso(String clave);
     
-    void mostrarCursos();
+    String mostrarCursos();
 }

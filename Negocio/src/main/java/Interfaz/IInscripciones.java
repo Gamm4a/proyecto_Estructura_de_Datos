@@ -14,11 +14,11 @@ public interface IInscripciones {
 
     void eliminarEstudianteDeCurso(String matricula, String clave);
 
-    void mostrarInscritos(String clave);
+    String mostrarInscritos(String clave);
     
-    void mostrarListaEspera(String clave, int cantidad);
+    String mostrarListaEspera(String clave, int cantidad);
 
-    void recorrerListaEsperaAdelante(String clave);
+    String recorrerListaEsperaAdelante(String clave);
 
-    void recorrerListaEsperaAtras(String clave);
+    String recorrerListaEsperaAtras(String clave);
 }

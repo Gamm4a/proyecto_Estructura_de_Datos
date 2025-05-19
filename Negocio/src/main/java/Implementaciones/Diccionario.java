@@ -324,24 +324,25 @@ public class Diccionario<K, V> {
 
     /**
      * imprime todo el diccionario.
+     * @return 
      */
-    public void imprimir() {
-        imprimir(0);
+    public String imprimir() {
+        return imprimir(0, new StringBuilder()).toString();
     }
     
     /**
      * imprime todo el diccionario.
      * @param i posicion
      */
-    private void imprimir(int i) {
+    private StringBuilder imprimir(int i, StringBuilder sb) {
         if (i >= tablaHash.length) {
-            return;
+            return sb;
         }
         ListaEnlazada<Entrada<K, V>> balde = tablaHash[i];
         if (balde != null) {
-            imprimirBalde(balde, 0);
+            imprimirBalde(balde, 0, sb);
         }
-        imprimir(i + 1);
+        return imprimir(i + 1, sb);
     }
     
     /**
@@ -349,11 +350,11 @@ public class Diccionario<K, V> {
      * @param balde balde
      * @param j posicion
      */
-    private void imprimirBalde(ListaEnlazada<Entrada<K, V>> balde, int j) {
+    private void imprimirBalde(ListaEnlazada<Entrada<K, V>> balde, int j, StringBuilder sb) {
         if (j >= balde.size()) {
             return;
         }
-        System.out.println(balde.get(j));
-        imprimirBalde(balde, j + 1);
+        sb.append(balde.get(j).toString()).append("\n");
+        imprimirBalde(balde, j + 1, sb);
     }
 }

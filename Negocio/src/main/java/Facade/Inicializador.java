@@ -16,12 +16,9 @@ import ObjetosNegocio.Estudiantes;
  */
 public class Inicializador {
 
-    public ArbolBinarioBusqueda<Estudiantes> estudiantes = new ArbolBinarioBusqueda<>();
+    public ArbolBinarioBusqueda<Estudiantes> estudiantes;
 
-    private final ListaEnlazada<Diccionario.Entrada<String, Cursos>>[] tablaHash
-            = (ListaEnlazada<Diccionario.Entrada<String, Cursos>>[]) new ListaEnlazada[10];
-
-    public Diccionario<String, Cursos> diccionarioCursos = new Diccionario<>(tablaHash, 10);
+    public Diccionario<String, Cursos> diccionarioCursos;
 
     private FEstudiantes fEstudiantes;
     private FCursos fCursos;
@@ -34,6 +31,13 @@ public class Inicializador {
      * constructor que crea el inicializador
      */
     public Inicializador() {
+        estudiantes = new ArbolBinarioBusqueda<>();
+        
+        ListaEnlazada<Diccionario.Entrada<String, Cursos>>[] tablaHash
+            = (ListaEnlazada<Diccionario.Entrada<String, Cursos>>[]) new ListaEnlazada[10];
+        
+        diccionarioCursos = new Diccionario<>(tablaHash, 10);
+        
         fEstudiantes = new FEstudiantes(estudiantes);
         fCursos = new FCursos(diccionarioCursos);
         fInscripciones = new FInscripciones(diccionarioCursos, estudiantes);
