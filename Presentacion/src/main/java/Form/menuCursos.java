@@ -210,7 +210,7 @@ public class menuCursos extends javax.swing.JPanel {
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         Cursos curso = new Cursos(txtClave.getText(),txtNombre.getText());
-        inicio.getFCursos().agregarCurso(txtClave.getText(),curso);
+        inicio.getFCursos().agregarCurso(curso.getClave(), curso);
         JOptionPane.showMessageDialog(frame, "se agrego un nuevo curso");
         limpiarCampos();
     }//GEN-LAST:event_GuardarActionPerformed

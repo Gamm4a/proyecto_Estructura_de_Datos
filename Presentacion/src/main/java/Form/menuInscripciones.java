@@ -245,7 +245,7 @@ public class menuInscripciones extends javax.swing.JPanel {
     private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
         // TODO add your handling code here:
         try{
-            inicio.getFInscripciones().inscribirEstudianteEnCurso(txtMatricula.getText(), txtCantidad.getText());
+            inicio.getFInscripciones().inscribirEstudianteEnCurso(txtMatricula.getText(), txtMatricula.getText());
             JOptionPane.showMessageDialog(frame, "Se registro el estudiante en el curso");
         }catch(Exception e){
             throw e;
@@ -265,7 +265,7 @@ public class menuInscripciones extends javax.swing.JPanel {
 
     private void inscritosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inscritosActionPerformed
         try{
-            String ins = inicio.getFInscripciones().mostrarInscritos(txtCantidad.getText());
+            String ins = inicio.getFInscripciones().mostrarInscritos(txtClave.getText());
             jTextArea1.setText(ins);
         }catch(Exception e){
             throw e;
