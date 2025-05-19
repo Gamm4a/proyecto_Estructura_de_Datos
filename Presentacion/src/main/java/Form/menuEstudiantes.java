@@ -5,6 +5,7 @@
 
 package Form;
 
+import FCalificacionesException.FEstudiantesException;
 import Facade.Inicializador;
 import ObjetosNegocio.Direccion;
 import ObjetosNegocio.Estudiantes;
@@ -345,8 +346,8 @@ public class menuEstudiantes extends javax.swing.JPanel {
             inicio.getFEstudiantes().registrarEstudiante(estudiante);
             JOptionPane.showMessageDialog(frame, "se registro un nuevo estudiante");
             limpiarCampos();
-        } catch(HeadlessException e){
-            JOptionPane.showMessageDialog(frame, "Error: no se pudo registrar el estudiante: " + e);
+        } catch(HeadlessException | FEstudiantesException e){
+            JOptionPane.showMessageDialog(frame, "Error: no se pudo registrar el estudiante: " + e.getMessage());
         }
     }//GEN-LAST:event_registrarAlumnoActionPerformed
 

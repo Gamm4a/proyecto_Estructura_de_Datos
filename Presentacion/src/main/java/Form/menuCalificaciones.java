@@ -218,8 +218,10 @@ public class menuCalificaciones extends javax.swing.JPanel {
             double dcalif = Double.parseDouble(txtCalif.getText());
             inicio.getFCalificaciones().enviarSolicitudAgregarCalificaion(txtMatricula.getText(), dcalif);
             JOptionPane.showMessageDialog(frame, "se envio la solicitud de agregar calificaion");
+        }catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(frame, "Error: Ingrese un numero en la calificacion ");
         } catch(Exception e){
-            JOptionPane.showMessageDialog(frame, "Error: no se proceso la solicitud: " + e);
+            JOptionPane.showMessageDialog(frame, "Error: no se proceso la solicitud: " + e.getMessage());
         }
     }//GEN-LAST:event_agregarCalifActionPerformed
 
@@ -230,14 +232,22 @@ public class menuCalificaciones extends javax.swing.JPanel {
             double rcalif = Double.parseDouble(txtCalifVieja.getText());
             inicio.getFCalificaciones().enviarSolicitudModificarCalificaion(txtMatricula.getText(),rcalif, dcalif);
             JOptionPane.showMessageDialog(frame, "se envio la solicitud de modificar calificacion");
+        }catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(frame, "Error: Ingrese un numero en la calificacion ");
         } catch(Exception e){
-            JOptionPane.showMessageDialog(frame, "Error: no se proceso la solicitud: " + e);
+            JOptionPane.showMessageDialog(frame, "Error: no se proceso la solicitud: " + e.getMessage());
         }
     }//GEN-LAST:event_modificarCalifActionPerformed
 
     private void procesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_procesarActionPerformed
-        inicio.getFCalificaciones().procesarSolicitud();
+        
+        try {
+            inicio.getFCalificaciones().procesarSolicitud();
         JOptionPane.showMessageDialog(frame, "se proceso una solicitud");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frame, "Error: no se proceso la solicitud: " + e.getMessage());
+        }
+        
     }//GEN-LAST:event_procesarActionPerformed
 
 

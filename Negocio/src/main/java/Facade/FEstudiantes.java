@@ -4,6 +4,7 @@
  */
 package Facade;
 
+import FCalificacionesException.FEstudiantesException;
 import Implementaciones.ArbolBinarioBusqueda;
 import Interfaz.IEstudiantes;
 import ObjetosNegocio.Estudiantes;
@@ -11,37 +12,47 @@ import ObjetosNegocio.Accion;
 
 /**
  * clase fachada de IEstudiantes
- * 
+ *
  * @author Luis Rafael
  */
 public class FEstudiantes implements IEstudiantes {
 
     private ArbolBinarioBusqueda<Estudiantes> arbol;
-    
+
     /**
      * constructor que crea un nueva fachada del estudiante
-     * 
+     *
      * @param arbolCompartido arbol
      */
     public FEstudiantes(ArbolBinarioBusqueda<Estudiantes> arbolCompartido) {
         this.arbol = arbolCompartido;
     }
-    
+
     /**
      * metodo para registrar un estudiante
-     * 
+     *
      * @param estudiante estudiante
      */
     @Override
-    public void registrarEstudiante(Estudiantes estudiante) {
+    public void registrarEstudiante(Estudiantes estudiante) throws FEstudiantesException {
         if (estudiante == null) {
-            System.out.println("Estudiante no puede ser null.");
-            return;
+            throw new FEstudiantesException("Ingresa los datos del estudiante");
+        }
+
+        if (estudiante.getMatricula().isBlank() || estudiante.getMatricula() == null) {
+            throw new FEstudiantesException("El estudiante no contiene matricula");
+        }
+
+        if (estudiante.getNombre().isBlank() || estudiante.getNombre() == null) {
+            throw new FEstudiantesException("El estudiante no contiene nombre");
+        }
+
+        if (estudiante.getTelefono().isBlank() || estudiante.getTelefono() == null) {
+            throw new FEstudiantesException("El estudiante no contiene numero telefonico");
         }
 
         if (arbol.buscarPorAtributo(e -> e.getMatricula(), estudiante.getMatricula()) != null) {
-            System.out.println("Ya existe un estudiante con esa matrícula.");
-            return;
+            throw new FEstudiantesException("Ya existe un estudiante con esa matrícula.");
         }
 
         arbol.insertar(estudiante);
@@ -50,10 +61,10 @@ public class FEstudiantes implements IEstudiantes {
         Accion accion = new Accion(Accion.Tipo.REGISTRO_ESTUDIANTE, estudiante, null, null, null, 0);
         FDeshacer.registrarAccion(accion);
     }
-    
+
     /**
      * metodo para buscar un estudiante
-     * 
+     *
      * @param matricula matricula del estudiante
      * @return estudiante encontrado
      */
@@ -72,10 +83,10 @@ public class FEstudiantes implements IEstudiantes {
 
         return encontrado;
     }
-    
+
     /**
      * metodo que elimina un estudiante
-     * 
+     *
      * @param matricula matricula del estudiante
      */
     @Override

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package Interfaz;
+import FCalificacionesException.FCursosException;
 import ObjetosNegocio.Cursos;
 /**
  *
@@ -10,9 +11,9 @@ import ObjetosNegocio.Cursos;
  */
 public interface ICursos {
 
-    void agregarCurso(String clave, Cursos curso);
+    void agregarCurso(String clave, Cursos curso) throws FCursosException;
     
-    void eliminarCurso(String clave);
+    void eliminarCurso(String clave) throws FCursosException;
     
     String mostrarCursos();
 }

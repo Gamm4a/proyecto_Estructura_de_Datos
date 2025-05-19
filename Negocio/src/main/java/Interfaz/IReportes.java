@@ -12,7 +12,7 @@ import ObjetosNegocio.Estudiantes;
  */
 public interface IReportes {
     
-    String listarPorPromedio();
+    String listarPorPromedio() ;
     
     Estudiantes rotarRol(String clave);
 }

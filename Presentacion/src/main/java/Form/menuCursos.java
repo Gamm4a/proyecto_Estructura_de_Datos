@@ -13,10 +13,13 @@ import javax.swing.JOptionPane;
  * @author Luis Rafael
  */
 public class menuCursos extends javax.swing.JPanel {
+
     private frmProyecto frame;
     private Inicializador inicio;
+
     /**
      * Creates new form menuCursos
+     *
      * @param frame
      * @param inicio
      */
@@ -209,19 +212,25 @@ public class menuCursos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
-        Cursos curso = new Cursos(txtClave.getText(),txtNombre.getText());
-        inicio.getFCursos().agregarCurso(curso.getClave(), curso);
-        JOptionPane.showMessageDialog(frame, "se agrego un nuevo curso");
-        limpiarCampos();
+        try {
+            Cursos curso = new Cursos(txtClave.getText(), txtNombre.getText());
+            inicio.getFCursos().agregarCurso(curso.getClave(), curso);
+            JOptionPane.showMessageDialog(frame, "se agrego un nuevo curso");
+            limpiarCampos();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frame, "Error: no se proceso la solicitud: " + e.getMessage());
+        }
+
+
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        try{
+        try {
             inicio.getFCursos().eliminarCurso(txtClave.getText());
             JOptionPane.showMessageDialog(frame, "se elimino el curso");
             limpiarCampos();
-        } catch(Exception e){
-            throw e;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frame, "Error: no se proceso la solicitud: " + e.getMessage());
         }
     }//GEN-LAST:event_EliminarActionPerformed
 
@@ -233,7 +242,7 @@ public class menuCursos extends javax.swing.JPanel {
     private void MostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MostrarActionPerformed
         String cursos = inicio.getFCursos().mostrarCursos();
         lista.setText(cursos);
-        
+
     }//GEN-LAST:event_MostrarActionPerformed
 
     private void limpiarCampos() {

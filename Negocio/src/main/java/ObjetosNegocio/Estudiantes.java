@@ -5,24 +5,28 @@
 package ObjetosNegocio;
 
 import Implementaciones.ArregloCalificaciones;
+
 /**
  * clase que representa a los estudiantes
+ *
  * @author Luis Rafael
  */
 public class Estudiantes implements Comparable<Estudiantes> {
+
     private String nombre, matricula, telefono, correo;
     private Direccion direccion;
     private ArregloCalificaciones<Double> calificaciones;
 
     /**
      * constructor que crea un estudiante.
+     *
      * @param matricula matricula del estudiante
      * @param nombre nombre del estudiante
      * @param telefono telefono del estudiante
      * @param correo correo del estudiante
      * @param direccion direccion del estudiante
      */
-    public Estudiantes(String matricula, String nombre, String telefono, String correo, Direccion direccion){
+    public Estudiantes(String matricula, String nombre, String telefono, String correo, Direccion direccion) {
         this.matricula = matricula;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -31,22 +35,23 @@ public class Estudiantes implements Comparable<Estudiantes> {
         this.calificaciones = new ArregloCalificaciones(5);
     }
 
-    
     /**
-     * Compara el estudiante con otro por su matricula, para el arbol de busqueda.
+     * Compara el estudiante con otro por su matricula, para el arbol de
+     * busqueda.
+     *
      * @param o estudiante a comparar
-     * @return 
+     * @return
      */
     @Override
     public int compareTo(Estudiantes o) {
         return this.matricula.compareTo(o.matricula);
     }
-    
+
     // getters y setters de los atributos 
     public String getMatricula() {
         return matricula;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -93,6 +98,13 @@ public class Estudiantes implements Comparable<Estudiantes> {
 
     @Override
     public String toString() {
-        return "Estudiante{" + "nombre=" + nombre + ", matricula=" + matricula + ", telefono=" + telefono + ", correo=" + correo + ", direccion=" + direccion + '}';
+        return "Estudiante\n"
+                + "  Nombre:     " + nombre + ",\n"
+                + "  Matrícula:  " + matricula + ",\n"
+                + "  Teléfono:   " + telefono + ",\n"
+                + "  Correo:     " + correo + ",\n"
+                + "  Dirección:  " + direccion + "\n"
+                + "";
     }
+
 }

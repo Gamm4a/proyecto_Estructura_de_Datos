@@ -4,15 +4,18 @@
  */
 package Interfaz;
 
+import FCalificacionesException.FInscripcionesException;
+
 /**
  *
  * @author 52644
  */
 public interface IInscripciones {
     
-    void inscribirEstudianteEnCurso(String matricula, String clave);
+    void inscribirEstudianteEnCurso(String matricula, String clave) throws FInscripcionesException;
+    
 
-    void eliminarEstudianteDeCurso(String matricula, String clave);
+    void eliminarEstudianteDeCurso(String matricula, String clave) throws FInscripcionesException;
 
     String mostrarInscritos(String clave);
     

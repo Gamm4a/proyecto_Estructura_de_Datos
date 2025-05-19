@@ -4,6 +4,7 @@
  */
 package Interfaz;
 
+import FCalificacionesException.FCalificacionesException;
 import ObjetosNegocio.Accion;
 
 /**
@@ -12,17 +13,17 @@ import ObjetosNegocio.Accion;
  */
 public interface ICalificaciones {
 
-    void agregarCalificacion(Accion accion);
+    void agregarCalificacion(Accion accion) ;
 
-    void eliminarCalificacion(String matricula, int posicion);
+    void eliminarCalificacion(String matricula, int posicion) throws FCalificacionesException;
 
     double calcularPromedio(String matricula);
 
     boolean modificarCalificacion(Accion accion);
     
-    void enviarSolicitudAgregarCalificaion(String matricula, double calificacion);
+    void enviarSolicitudAgregarCalificaion(String matricula, double calificacion) throws FCalificacionesException;
     
-    void enviarSolicitudModificarCalificaion(String matricula, double calificacion, double calNueva);
+    void enviarSolicitudModificarCalificaion(String matricula, double calificacion, double calNueva) throws FCalificacionesException;
     
-    void procesarSolicitud();
+    void procesarSolicitud() throws FCalificacionesException;
 }

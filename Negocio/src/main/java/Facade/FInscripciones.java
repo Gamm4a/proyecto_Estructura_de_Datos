@@ -4,6 +4,7 @@
  */
 package Facade;
 
+import FCalificacionesException.FInscripcionesException;
 import Interfaz.IInscripciones;
 import ObjetosNegocio.Cursos;
 import ObjetosNegocio.Estudiantes;
@@ -40,21 +41,24 @@ public class FInscripciones implements IInscripciones {
      * @param clave clave del curso
      */
     @Override
-    public void inscribirEstudianteEnCurso(String matricula, String clave) {
+    public void inscribirEstudianteEnCurso(String matricula, String clave) throws FInscripcionesException {
         Cursos curso = cursos.get(clave);
         Estudiantes estudiante = estudiantes.buscarPorAtributo(e -> e.getMatricula(), matricula);
 
-        if (curso == null || estudiante == null) {
-            System.out.println("Curso o estudiante no encontrado.");
-            return;
+        if (curso == null || clave.isBlank() || clave==null) {
+            throw new FInscripcionesException("Curso no encontrado");
+        }
+        if (matricula == null || matricula.isBlank()) {
+            throw new FInscripcionesException("Estudiante no encontrado");
         }
 
         if (curso.getInscritos().getTamaño() >= Cursos.getMAX_INSCRITOS()) {
             curso.getListaEspera().agregar(estudiante);
-            System.out.println("Curso lleno. Estudiante agregado a la lista de espera.");
+            throw new FInscripcionesException("Curso lleno. Estudiante agregado a la lista de espera");
         } else {
             curso.getInscritos().agregarUltimo(estudiante);
             curso.getRolEstudiantes().agregar(estudiante);
+            
             System.out.println("Estudiante inscrito correctamente.");
         }
 
@@ -69,14 +73,16 @@ public class FInscripciones implements IInscripciones {
      * @param clave clave del cursos
      */
     @Override
-    public void eliminarEstudianteDeCurso(String matricula, String clave) {
+    public void eliminarEstudianteDeCurso(String matricula, String clave) throws FInscripcionesException {
         Cursos curso = cursos.get(clave);
         Estudiantes estudiante = estudiantes.buscarPorAtributo(e -> e.getMatricula(), matricula);
 
 
         if (curso == null || estudiante == null) {
-            System.out.println("Curso o estudiante no encontrado.");
-            return;
+            throw new FInscripcionesException("Curso no encontrado");
+        }
+        if (estudiante == null) {
+            throw new FInscripcionesException("Estudiante no encontrado");
         }
 
         curso.getInscritos().eliminar(estudiante);

@@ -245,11 +245,12 @@ public class menuInscripciones extends javax.swing.JPanel {
     private void btnInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscribirActionPerformed
         // TODO add your handling code here:
         try{
-            inicio.getFInscripciones().inscribirEstudianteEnCurso(txtMatricula.getText(), txtMatricula.getText());
+            inicio.getFInscripciones().inscribirEstudianteEnCurso(txtMatricula.getText(), txtClave.getText());
             JOptionPane.showMessageDialog(frame, "Se registro el estudiante en el curso");
         }catch(Exception e){
-            throw e;
+            JOptionPane.showMessageDialog(frame, "Error: no se pudo registrar inscribir al curso: " + e.getMessage());
         }
+       
     }//GEN-LAST:event_btnInscribirActionPerformed
 
     private void esperaNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_esperaNActionPerformed
@@ -258,7 +259,7 @@ public class menuInscripciones extends javax.swing.JPanel {
             String lista = inicio.getFInscripciones().mostrarListaEspera(txtClave.getText(), Integer.parseInt(txtCantidad.getText()));
             jTextArea1.setText(lista);
         }catch(Exception e){
-            throw e;
+            JOptionPane.showMessageDialog(frame, "Error: no se pudo registrar inscribir al curso: " + e.getMessage());
         }
         
     }//GEN-LAST:event_esperaNActionPerformed

@@ -4,6 +4,7 @@
  */
 package Facade;
 
+import FCalificacionesException.FCalificacionesException;
 import Implementaciones.ArbolBinarioBusqueda;
 import Implementaciones.ArregloCalificaciones;
 import Interfaz.ICalificaciones;
@@ -14,26 +15,27 @@ import Implementaciones.Cola;
 
 /**
  * clase Fachada de ICalificaciones
- * 
+ *
  * @author Luis Rafael
  */
 public class FCalificaciones implements ICalificaciones {
-    
+
     private ArbolBinarioBusqueda<Estudiantes> arbol;
     private Cola<Accion> colaSolicitudes = new Cola<>();
+
     /**
      * constructor que crea un arbol binario de busqueda para alumnos
-     * 
+     *
      * @param arbolCompartido arbol de estudiantes
      */
     public FCalificaciones(ArbolBinarioBusqueda<Estudiantes> arbolCompartido) {
         this.arbol = arbolCompartido;
     }
-    
+
     /**
      * metodo para agregar una calificacion a un estudiante
-     * 
-     * @param accion accion 
+     *
+     * @param accion accion
      */
     @Override
     public void agregarCalificacion(Accion accion) {
@@ -54,9 +56,10 @@ public class FCalificaciones implements ICalificaciones {
         FDeshacer.registrarAccion(accionFinal);
         System.out.println("Calificación agregada.");
     }
+
     /**
-     *metodo para modificar la calificacion a un estudiante
-     * 
+     * metodo para modificar la calificacion a un estudiante
+     *
      * @param accion accion
      * @return modificacion realizada o fallida
      */
@@ -64,7 +67,6 @@ public class FCalificaciones implements ICalificaciones {
     public boolean modificarCalificacion(Accion accion) {
         Estudiantes estudiante = accion.getEstudiante();
         ArregloCalificaciones<Double> calificaciones = estudiante.getCalificaciones();
-
 
         boolean ok = calificaciones.modificarElemento(accion.getCalificacionAnterior(), accion.getCalificacionNueva());
 
@@ -82,20 +84,19 @@ public class FCalificaciones implements ICalificaciones {
 
         return ok;
     }
-    
+
     /**
      * metodo para eliminar una calificacion de un estudiantes
-     * 
+     *
      * @param matricula matricula del estudiante
      * @param posicion posicion de la califciacion
      */
     @Override
-    public void eliminarCalificacion(String matricula, int posicion) {
+    public void eliminarCalificacion(String matricula, int posicion) throws FCalificacionesException {
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
 
         if (estudiante == null) {
-            System.out.println("Estudiante no encontrado.");
-            return;
+            throw new FCalificacionesException("El estudiante no fue encontrado");
         }
 
         ArregloCalificaciones<Double> calificaciones = estudiante.getCalificaciones();
@@ -117,10 +118,10 @@ public class FCalificaciones implements ICalificaciones {
         FDeshacer.registrarAccion(accion);
         System.out.println("Calificación eliminada.");
     }
-    
+
     /**
      * metodo para calcular el promedio de un estudiante
-     * 
+     *
      * @param matricula matricula del estudiante
      * @return promedio calculado
      */
@@ -129,7 +130,6 @@ public class FCalificaciones implements ICalificaciones {
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
 
         if (estudiante == null) {
-            System.out.println("Estudiante no encontrado.");
             return 0.0;
         }
 
@@ -145,20 +145,21 @@ public class FCalificaciones implements ICalificaciones {
 
         return suma / calificaciones.getTam();
     }
-    
+
     /**
      * metodo ara enviar una solicitud para agregar la calificacion
-     * 
+     *
      * @param matricula matricula del estudiante
      * @param calificacion calificacion a ingresar
+     * @throws FCalificacionesException.FCalificacionesException
      */
     @Override
-    public void enviarSolicitudAgregarCalificaion(String matricula, double calificacion) {
+    public void enviarSolicitudAgregarCalificaion(String matricula, double calificacion) throws FCalificacionesException {
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
 
         if (estudiante == null) {
-            System.out.println("Estudiante no encontrado.");
-            return;
+            throw new FCalificacionesException("El estudiante no fue encontrado");
+
         }
 
         Accion accion = new Accion(
@@ -170,21 +171,23 @@ public class FCalificaciones implements ICalificaciones {
         colaSolicitudes.enqueue(accion);
         System.out.println("Solicitud de agregar calificación enviada.");
     }
-    
+
     /**
-     * metodo para enviar una solisitud de modificar la calificacion de un estudiante
-     * 
+     * metodo para enviar una solisitud de modificar la calificacion de un
+     * estudiante
+     *
      * @param matricula matricula del estudiante
      * @param calAnterior calificaciona a reemplazar
      * @param calNueva nueva calificacion
+     * @throws FCalificacionesException.FCalificacionesException
      */
     @Override
-    public void enviarSolicitudModificarCalificaion(String matricula, double calAnterior, double calNueva) {
+    public void enviarSolicitudModificarCalificaion(String matricula, double calAnterior, double calNueva) throws FCalificacionesException {
         Estudiantes estudiante = arbol.buscarPorAtributo(e -> e.getMatricula(), matricula);
 
         if (estudiante == null) {
-            System.out.println("Estudiante no encontrado.");
-            return;
+            throw new FCalificacionesException("El estudiante no fue encontrado");
+
         }
 
         Accion accion = new Accion(
@@ -196,25 +199,26 @@ public class FCalificaciones implements ICalificaciones {
         colaSolicitudes.enqueue(accion);
         System.out.println("Solicitud de modificar calificación enviada.");
     }
-    
+
     /**
      * metodo para procesar la solicitud
      */
     @Override
-    public void procesarSolicitud() {
-        
-        if (colaSolicitudes.vacia()){
-            System.out.println("No hay solicitudes pendientes.");
-            return;
+    public void procesarSolicitud() throws FCalificacionesException {
+
+        if (colaSolicitudes.vacia()) {
+            throw new FCalificacionesException("No hay solicitudes pendientes.");
         }
         Accion accion = colaSolicitudes.dequeue();
         switch (accion.getTipo()) {
-            case CALIFICACION_AGREGADA -> agregarCalificacion(accion);
+            case CALIFICACION_AGREGADA ->
+                agregarCalificacion(accion);
 
-            case CALIFICACION_MODIFICADA -> modificarCalificacion(accion);
+            case CALIFICACION_MODIFICADA ->
+                modificarCalificacion(accion);
 
-            default -> System.out.println("Tipo de solicitud no reconocida.");
+            default ->
+                System.out.println("Tipo de solicitud no reconocida.");
         }
     }
 }
-

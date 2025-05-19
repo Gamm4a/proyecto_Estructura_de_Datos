@@ -4,6 +4,7 @@
  */
 package Interfaz;
 
+import FCalificacionesException.FEstudiantesException;
 import ObjetosNegocio.Estudiantes;
 
 /**
@@ -12,9 +13,9 @@ import ObjetosNegocio.Estudiantes;
  */
 public interface IEstudiantes {
 
-    void registrarEstudiante(Estudiantes estudiante);
+    void registrarEstudiante(Estudiantes estudiante) throws FEstudiantesException;
 
-    void eliminarEstudiante(String matricula);
+    void eliminarEstudiante(String matricula)throws  FEstudiantesException;
 
     Estudiantes buscarEstudiante(String matricula);
 }

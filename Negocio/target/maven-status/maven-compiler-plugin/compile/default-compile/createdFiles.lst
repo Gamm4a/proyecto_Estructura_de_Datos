@@ -4,7 +4,9 @@ Facade\FDeshacer.class
 Implementaciones\ListaEnlazada.class
 Interfaz\IReportes.class
 Facade\Inicializador.class
+FCalificacionesException\FReportesException.class
 ObjetosNegocio\Direccion.class
+FCalificacionesException\FCursosException.class
 ObjetosNegocio\Estudiantes.class
 Interfaz\ICursos.class
 ObjetosNegocio\Accion$Tipo.class
@@ -18,8 +20,10 @@ Interfaz\IDeshacer.class
 Implementaciones\ListaEnlazadaCircular$Nodo.class
 Implementaciones\ListaEstudiantes.class
 Facade\FCalificaciones.class
+FCalificacionesException\FEstudiantesException.class
 Interfaz\ICalificaciones.class
 Implementaciones\ListaDobleCircular$Nodo.class
+FCalificacionesException\FCalificacionesException.class
 ObjetosNegocio\Accion.class
 Implementaciones\ListaEnlazada$NodoSimple.class
 Interfaz\IInscripciones.class
@@ -33,5 +37,6 @@ Facade\FInscripciones.class
 Implementaciones\Pila.class
 Implementaciones\ArbolBinarioBusqueda.class
 Facade\FCalificaciones$1.class
+FCalificacionesException\FInscripcionesException.class
 Implementaciones\ArregloCalificaciones.class
 Implementaciones\Diccionario.class
